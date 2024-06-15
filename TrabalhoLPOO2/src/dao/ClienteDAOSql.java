@@ -2,13 +2,11 @@ package dao;
 
 import model.Cliente;
 import db.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteDAO implements DAO<Cliente> {
-
+public class ClienteDaoSql implements DAO<Cliente> {
     @Override
     public void insert(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO Cliente (nome, sobrenome, rg, cpf, endereco) VALUES (?, ?, ?, ?, ?)";
