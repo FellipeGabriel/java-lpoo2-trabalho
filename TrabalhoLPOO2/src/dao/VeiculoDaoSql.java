@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VeiculoDAO implements DAO<Veiculo> {
+public class VeiculoDaoSql implements DAO<Veiculo> {
 
     @Override
     public void insert(Veiculo veiculo) throws SQLException {

@@ -67,4 +67,26 @@ public class Locacao {
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
+
+    public int getClienteId() {
+        return cliente.getId();
+    }
+
+    public int getVeiculoId() {
+        return veiculo.getId();
+    }
+
+    public Calendar getDataInicio() {
+        return data; 
+    }
+
+    public Calendar getDataFim() {
+        Calendar dataFim = (Calendar) data.clone();
+        dataFim.add(Calendar.DAY_OF_MONTH, dias); // Aqui ele adiciona os dias ao início para obter a data de fim
+        return dataFim;
+    }
+
+    public double getValorTotal() {
+        return valor;
+    }
 }
