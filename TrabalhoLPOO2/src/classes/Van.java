@@ -15,12 +15,12 @@ import enums.ModeloVan;
  *
  * @author janai
  */
-public class Van extends Veiculo {
+public class Van extends VeiculoC {
     
     private final ModeloVan modelo;
     
-    public Van(Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano, ModeloVan modelo){
-        super(marca, categoria, estado, valorDeCompra, placa, ano);
+    public Van(int id, Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano, ModeloVan modelo){
+        super(id, marca, categoria, estado, valorDeCompra, placa, ano);
         this.modelo = modelo;
     };
     

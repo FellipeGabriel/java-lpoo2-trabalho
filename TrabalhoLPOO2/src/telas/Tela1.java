@@ -7,7 +7,7 @@ package telas;
 
 import transitions.TransitionsForm;
 import classes.Cliente;
-import classes.Veiculo;
+import classes.VeiculoC;
 import main.Main;
 
 import javax.swing.JOptionPane;
@@ -342,7 +342,7 @@ public class Tela1 extends TransitionsForm {
         DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
         Cliente ClienteExclud = Cliente.getCliente(selectedRow);
         cpf = ClienteExclud.getCPF();
-        Veiculo[] veiculosLocados = Main.getVeiculosLocados();
+        VeiculoC[] veiculosLocados = Main.getVeiculosLocados();
         for (int i = 0; i < veiculosLocados.length; i++) {
             if (veiculosLocados[i].getLocacao().getCliente().getCPF() == cpf) {
                 hasLocacao = true;

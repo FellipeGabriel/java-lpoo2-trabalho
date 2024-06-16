@@ -1,12 +1,14 @@
 package dao;
 
 import model.Veiculo;
+import enums.Categoria;
+import enums.Estado;
+import enums.Marca;
 import db.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class VeiculoDaoSql implements DAO<Veiculo> {
 
@@ -15,10 +17,10 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
         String sql = "INSERT INTO Veiculo (marca, estado, categoria, modelo, valor_de_compra, placa, ano) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, veiculo.getMarca().toString());
-            stmt.setString(2, veiculo.getEstado().toString());
-            stmt.setString(3, veiculo.getCategoria().toString());
-            stmt.setString(4, veiculo.getModelo().toString());
+            stmt.setString(1, veiculo.getMarca());
+            stmt.setString(2, veiculo.getEstado());
+            stmt.setString(3, veiculo.getCategoria());
+            stmt.setString(4, veiculo.getModelo());
             stmt.setDouble(5, veiculo.getValorDeCompra());
             stmt.setString(6, veiculo.getPlaca());
             stmt.setInt(7, veiculo.getAno());
@@ -37,9 +39,9 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
             if (rs.next()) {
                 veiculo = new Veiculo(
                         rs.getInt("id"),
-                        rs.getString("marca"),
-                        rs.getString("estado"),
-                        rs.getString("categoria"),
+                        Marca.valueOf(rs.getString("marca")),
+                        Estado.valueOf(rs.getString("estado")),
+                        Categoria.valueOf(rs.getString("categoria")),
                         rs.getString("modelo"),
                         rs.getDouble("valor_de_compra"),
                         rs.getString("placa"),
@@ -60,9 +62,9 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
             while (rs.next()) {
                 Veiculo veiculo = new Veiculo(
                         rs.getInt("id"),
-                        rs.getString("marca"),
-                        rs.getString("estado"),
-                        rs.getString("categoria"),
+                        Marca.valueOf(rs.getString("marca")),
+                        Estado.valueOf(rs.getString("estado")),
+                        Categoria.valueOf(rs.getString("categoria")),
                         rs.getString("modelo"),
                         rs.getDouble("valor_de_compra"),
                         rs.getString("placa"),
@@ -79,10 +81,10 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
         String sql = "UPDATE Veiculo SET marca = ?, estado = ?, categoria = ?, modelo = ?, valor_de_compra = ?, placa = ?, ano = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, veiculo.getMarca().toString());
-            stmt.setString(2, veiculo.getEstado().toString());
-            stmt.setString(3, veiculo.getCategoria().toString());
-            stmt.setString(4, veiculo.getModelo().toString());
+            stmt.setString(1, veiculo.getMarca());
+            stmt.setString(2, veiculo.getEstado());
+            stmt.setString(3, veiculo.getCategoria());
+            stmt.setString(4, veiculo.getModelo());
             stmt.setDouble(5, veiculo.getValorDeCompra());
             stmt.setString(6, veiculo.getPlaca());
             stmt.setInt(7, veiculo.getAno());

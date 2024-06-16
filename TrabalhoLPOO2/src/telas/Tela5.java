@@ -1,7 +1,7 @@
 
 package telas;
 
-import classes.Veiculo;
+import classes.VeiculoC;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
@@ -239,23 +239,23 @@ private String[] marca,  categoria;
             JOptionPane.showMessageDialog(this,"Pelo menos um dos campos de ve ser preenchido" , "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Veiculo[] veiculos = Main.veiculos;
-        Veiculo[] veiculosFiltrados = null;
+        VeiculoC[] veiculos = Main.veiculos;
+        VeiculoC[] veiculosFiltrados = null;
         
         String marcaSelecionada = marcaSelect.getSelectedItem().toString();
         String categoriaSelecionada = categoriaSelect.getSelectedItem().toString();
         
         if (veiculos != null && veiculos.length > 0) {
-            for (Veiculo veiculo : veiculos) {
+            for (VeiculoC veiculo : veiculos) {
                 if (veiculo != null && veiculo.getEstado().equals(Estado.DISPONÍVEL) || veiculo.getEstado().equals(Estado.NOVO)) {
                     if (automovelRB1.isSelected() && veiculo instanceof Automovel) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -263,11 +263,11 @@ private String[] marca,  categoria;
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -275,11 +275,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -287,11 +287,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -301,11 +301,11 @@ private String[] marca,  categoria;
                     } else if (motocicletaRB2.isSelected() && veiculo instanceof Motocicleta) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -313,11 +313,11 @@ private String[] marca,  categoria;
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -325,11 +325,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -337,11 +337,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -351,11 +351,11 @@ private String[] marca,  categoria;
                     } else if (vanRB3.isSelected() && veiculo instanceof Van) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -363,11 +363,11 @@ private String[] marca,  categoria;
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -375,11 +375,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -387,11 +387,11 @@ private String[] marca,  categoria;
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -424,7 +424,7 @@ private String[] marca,  categoria;
             if (resposta == JOptionPane.YES_OPTION) {
                 String placa = (String) tableCarSale.getValueAt(selectedRow, 0);
 
-                Veiculo veiculoParaVender = encontrarVeiculoPorPlaca(placa);
+                VeiculoC veiculoParaVender = encontrarVeiculoPorPlaca(placa);
                 veiculoParaVender.vender();
                 this.fillTable(Main.getVeiculosDisponiveis());
 
@@ -434,15 +434,15 @@ private String[] marca,  categoria;
                     "Nenhum veículo selecionado", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_bSaleActionPerformed
-    private Veiculo encontrarVeiculoPorPlaca(String placa) {
-        for (Veiculo veiculo : Main.getVeiculosDisponiveis()) {
+    private VeiculoC encontrarVeiculoPorPlaca(String placa) {
+        for (VeiculoC veiculo : Main.getVeiculosDisponiveis()) {
             if (veiculo.getPlaca().equals(placa)) {
                 return veiculo;
             }
         }
         return null;
 }
-    public void fillTable(Veiculo[] veiculos) {
+    public void fillTable(VeiculoC[] veiculos) {
     DefaultTableModel model = (DefaultTableModel) tableCarSale.getModel();
     model.setRowCount(0);
 
@@ -450,7 +450,7 @@ private String[] marca,  categoria;
 
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
-        for (Veiculo veiculo : veiculos) {
+        for (VeiculoC veiculo : veiculos) {
             
             if (veiculo != null ) {
                 

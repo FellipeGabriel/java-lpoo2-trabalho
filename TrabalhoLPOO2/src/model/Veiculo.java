@@ -1,16 +1,20 @@
 package model;
 
-public class Veiculo {
-    private int id;
-    private String marca;
-    private String estado;
-    private String categoria;
-    private String modelo;
-    private double valorDeCompra;
-    private String placa;
-    private int ano;
+import enums.Categoria;
+import enums.Estado;
+import enums.Marca;
 
-    public Veiculo(int id, String marca, String estado, String categoria, String modelo, double valorDeCompra, String placa, int ano) {
+public class Veiculo{
+    private int id;
+    private final Marca marca;
+    private Estado estado;
+    private final Categoria categoria;
+    private final String modelo;
+    private double valorDeCompra;
+    private final String placa;
+    private final int ano;
+
+    public Veiculo(int id, Marca marca, Estado estado, Categoria categoria, String modelo, double valorDeCompra, String placa, int ano) {
         this.id = id;
         this.marca = marca;
         this.estado = estado;
@@ -31,35 +35,23 @@ public class Veiculo {
     }
 
     public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
+        return marca.toString();
     }
 
     public String getEstado() {
-        return estado;
+        return estado.toString();
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
     public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+        return categoria.toString();
     }
 
     public String getModelo() {
         return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
     }
 
     public double getValorDeCompra() {
@@ -74,15 +66,7 @@ public class Veiculo {
         return placa;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
     public int getAno() {
         return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
     }
 }

@@ -8,7 +8,7 @@ package telas;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
-import classes.Veiculo;
+import classes.VeiculoC;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -147,7 +147,7 @@ public class Tela4 extends TransitionsForm {
             if (resposta == JOptionPane.YES_OPTION) {
                 String placa = (String) DevolverTable.getValueAt(selectedRow, 1);
 
-                Veiculo veiculoParaDevolver = encontrarVeiculoPorPlaca(placa);
+                VeiculoC veiculoParaDevolver = encontrarVeiculoPorPlaca(placa);
 
                 veiculoParaDevolver.devolver();
                 this.fillTable(Main.getVeiculosDisponiveis());
@@ -159,8 +159,8 @@ public class Tela4 extends TransitionsForm {
         }
     }//GEN-LAST:event_DevolverButtonActionPerformed
 
-    private Veiculo encontrarVeiculoPorPlaca(String placa) {
-        for (Veiculo veiculo : Main.getVeiculosLocados()) {
+    private VeiculoC encontrarVeiculoPorPlaca(String placa) {
+        for (VeiculoC veiculo : Main.getVeiculosLocados()) {
             if (veiculo.getPlaca().equals(placa)) {
                 return veiculo;
             }
@@ -168,7 +168,7 @@ public class Tela4 extends TransitionsForm {
         return null;
 }
 
-public void fillTable(Veiculo[] veiculos) {
+public void fillTable(VeiculoC[] veiculos) {
     DefaultTableModel model = (DefaultTableModel) DevolverTable.getModel();
     model.setRowCount(0);
 
@@ -178,7 +178,7 @@ public void fillTable(Veiculo[] veiculos) {
 
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
-        for (Veiculo veiculo : veiculos) {
+        for (VeiculoC veiculo : veiculos) {
             
             if (veiculo != null && veiculo.getLocacao() != null) {
                 
