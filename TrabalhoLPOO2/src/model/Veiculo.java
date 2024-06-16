@@ -49,15 +49,24 @@ public abstract class Veiculo implements VeiculoI{
         this.estado = Estado.DISPONÍVEL;
         this.locacao = null;
     };
-    
+    public int getId() {
+        return id;
+    };
+
     @Override
     public Estado getEstado() {
         return this.estado;
     };
-    
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    };
     @Override
     public Marca getMarca() {
         return this.marca;
+    };
+    
+    public String getModelo() {
+        return modelo;
     };
     
     @Override
@@ -79,7 +88,6 @@ public abstract class Veiculo implements VeiculoI{
     public int getAno() {
         return this.ano;
     };
-    
     @Override
     public double getValorParaVenda() {
         int idadeVeiculoEmAnos = Year.now().getValue() - this.ano;
@@ -92,6 +100,5 @@ public abstract class Veiculo implements VeiculoI{
     };
     
     @Override
-    public abstract double getValorDiariaLocacao();
-    
+    public abstract double getValorDiariaLocacao(); 
 }

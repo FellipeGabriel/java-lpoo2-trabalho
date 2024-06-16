@@ -46,6 +46,10 @@ public class VeiculoController {
                 view.apresentaInfo("Selecione um veiculo");
                 return;
             }
+            switch(operation){
+                case 3:
+                    
+            }
             veiculoDAO.update(veiculo);
             view.updateVeiculo(veiculo);
         }catch(Exception ex){
