@@ -10,13 +10,12 @@ import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
 import enums.ModeloAutomovel;
-import model.Veiculo;
 
 /**
  *
  * @author paulo
  */
-public class Automovel extends Veiculo {
+public class Automovel extends VeiculoC {
     
     private final ModeloAutomovel modelo;
     

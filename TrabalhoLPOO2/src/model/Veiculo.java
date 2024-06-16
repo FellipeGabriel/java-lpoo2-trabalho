@@ -1,104 +1,72 @@
 package model;
 
-import java.util.Calendar;
 import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
-import enums.ModeloVan;
-import interfaces.VeiculoI;
-import java.time.Year;
 
-public abstract class Veiculo implements VeiculoI{
-   private Marca marca;
-    private Estado estado;
-    private classes.Locacao locacao;
-    private final Categoria categoria;
-    private final double valorDeCompra;
-    private String placa;
-    private int ano;
+public class Veiculo{
     private int id;
-    
-    public Veiculo(int id,Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano) {
-        this.locacao = null;
+    private final Marca marca;
+    private Estado estado;
+    private final Categoria categoria;
+    private final String modelo;
+    private double valorDeCompra;
+    private final String placa;
+    private final int ano;
+
+    public Veiculo(int id, Marca marca, Estado estado, Categoria categoria, String modelo, double valorDeCompra, String placa, int ano) {
+        this.id = id;
         this.marca = marca;
         this.estado = estado;
         this.categoria = categoria;
+        this.modelo = modelo;
         this.valorDeCompra = valorDeCompra;
         this.placa = placa;
         this.ano = ano;
     }
-    
-    public void locar(int dias, double valor, Calendar data, classes.Cliente cliente) {
-        if (this.estado != Estado.VENDIDO) {
-            this.estado = Estado.LOCADO;
-            this.locacao = new classes.Locacao(dias,valor,data, cliente){
-                
-            };
 
-            this.getValorDiariaLocacao();
-        }
-    }
-    
-    @Override
-    public void vender() {
-        this.estado = Estado.VENDIDO;
-    };
-    
-    @Override
-    public void devolver() {
-        this.estado = Estado.DISPONÍVEL;
-        this.locacao = null;
-    };
+    // Getters e Setters
     public int getId() {
         return id;
-    };
+    }
 
-    @Override
-    public Estado getEstado() {
-        return this.estado;
-    };
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getMarca() {
+        return marca.toString();
+    }
+
+    public String getEstado() {
+        return estado.toString();
+    }
+
     public void setEstado(Estado estado) {
         this.estado = estado;
-    };
-    @Override
-    public Marca getMarca() {
-        return this.marca;
-    };
-    
+    }
+
+    public String getCategoria() {
+        return categoria.toString();
+    }
+
     public String getModelo() {
         return modelo;
-    };
-    
-    @Override
-    public Categoria getCategoria() {
-        return this.categoria;
-    };
-    
-    @Override
-    public classes.Locacao getLocacao() {
-        return this.locacao;
-    };
-    
-    @Override
+    }
+
+    public double getValorDeCompra() {
+        return valorDeCompra;
+    }
+
+    public void setValorDeCompra(double valorDeCompra) {
+        this.valorDeCompra = valorDeCompra;
+    }
+
     public String getPlaca() {
-        return this.placa;
-    };
-    
-    @Override
+        return placa;
+    }
+
     public int getAno() {
-        return this.ano;
-    };
-    @Override
-    public double getValorParaVenda() {
-        int idadeVeiculoEmAnos = Year.now().getValue() - this.ano;
-        double valorParaVenda = this.valorDeCompra - idadeVeiculoEmAnos * 0.15 * this.valorDeCompra;
-        if (valorParaVenda < 0 || valorParaVenda < this.valorDeCompra * 0.1) {
-            valorParaVenda = this.valorDeCompra * 0.1;
-        }
-        
-        return valorParaVenda;
-    };
-    
-    @Override
-    public abstract double getValorDiariaLocacao(); 
+        return ano;
+    }
 }

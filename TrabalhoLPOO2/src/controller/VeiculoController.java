@@ -36,6 +36,7 @@ public class VeiculoController {
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar o veiculo");
         }
+        
     }
     
     public void updateVeiculo(){
