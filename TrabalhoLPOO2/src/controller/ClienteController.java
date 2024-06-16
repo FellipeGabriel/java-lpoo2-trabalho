@@ -31,9 +31,9 @@ public class ClienteController {
     
     public void createCliente(){
         try{
-            Cliente cliente = view.getClienteFormulario();
+            Cliente cliente = view.getClienteForm();
             clienteDAO.insert(cliente);
-            view.inserirClienteView(cliente);
+            view.insertClienteView(cliente);
             view.apresentaInfo("Cliente criado");
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar cliente");

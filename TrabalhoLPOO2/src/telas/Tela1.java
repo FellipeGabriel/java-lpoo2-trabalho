@@ -47,16 +47,16 @@ public class Tela1 extends TransitionsForm {
         //botoesView.setController(controller);
     }
     public void initView(){
-        //tabelaClienteView.setjanelaView(this);
+        //tableClienteView.setJanelaView(this);
         //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
     }
     
-   /* public Cliente getContatoFormulario(){
-       return this.formClienteView.getClienteFormulario();
+   /* public Cliente getContatoForm(){
+       return this.formClienteView.getClienteForm();
     }
     */
-    public void inserirClienteView(Cliente cliente){
-        //tableClienteView.inserirClienteTabela(cliente);
+    public void insertClienteView(Cliente cliente){
+        //tableClienteView.insertClienteTabela(cliente);
     }
     /*public Cliente getUpdateCliente(){
         tableClienteView.getUpdateCliente();

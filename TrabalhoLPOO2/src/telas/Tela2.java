@@ -12,6 +12,7 @@ import javax.swing.text.MaskFormatter;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
+import controller.VeiculoController;
 import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
@@ -23,12 +24,13 @@ import main.Main;
 import java.awt.event.ItemEvent;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
+import model.Veiculo;
 
 import transitions.TransitionsForm;
 
 /**
  *
- * @author RAVEN
+ * @author 
  */
 public class Tela2 extends TransitionsForm {
 
@@ -43,7 +45,27 @@ public class Tela2 extends TransitionsForm {
         addRadioButtonsToGroup();
         addRadioButtonListeners();
     }
-
+    
+    public void setControllerVeiculo(VeiculoController controller){
+        //botoesView.setCOntroller(controller);
+    }
+    public void initView(){
+        //tableVeiculoView.setJanelaView(this);
+        //java.awt.EventQueue,invokerLater(()->tjis.setVisible(true));
+    }
+    /*public Veiculo getVeiculoForm(){
+        return this.formVeiculoView.getVeiculoForm();
+    }*/
+    public void insertVeiculoView(Veiculo veiculo){
+        //tableVeiculoView.insertClienteTable(veiculo);
+    }
+    public void apresentaInfo (String info){
+        JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
+   }
+   public void apresentaErro(String erro){
+        JOptionPane.showMessageDialog(null, erro +"\n" ,"Erro", JOptionPane.ERROR_MESSAGE);
+   }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
