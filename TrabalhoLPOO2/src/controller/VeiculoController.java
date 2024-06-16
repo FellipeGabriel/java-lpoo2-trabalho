@@ -5,6 +5,7 @@
 package controller;
 
 import dao.VeiculoDaoSql;
+import model.Veiculo;
 import telas.Tela2;
 
 /**
@@ -28,7 +29,7 @@ public class VeiculoController {
     
     public void createVeiculo(){
         try{
-            Veiculo veiculo = view.getVeiucloForm();
+            Veiculo veiculo = view.getVeiculoForm();
             veiculoDAO.insert(veiculo);
             view.insertVeiculoView(veiculo);
             view.apresentaInfo("Veiculo criado");
@@ -37,4 +38,18 @@ public class VeiculoController {
         }
     }
     
+    public void updateVeiculo(){
+        try{
+            Veiculo veiculo = view.getVeiculoUpdate();
+            int operation = view.getNumberOperation();
+            if(veiculo==null){
+                view.apresentaInfo("Selecione um veiculo");
+                return;
+            }
+            veiculoDAO.update(veiculo);
+            view.updateVeiculo(veiculo);
+        }catch(Exception ex){
+            view.apresentaErro("Erro ao atualizar veiculo");
+        }
+    }
 }

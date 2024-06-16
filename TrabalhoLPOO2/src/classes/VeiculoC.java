@@ -15,7 +15,7 @@ import java.util.Calendar;
  * 
  * @author paulo
  */
-public abstract class Veiculo implements VeiculoI {
+public abstract class VeiculoC implements VeiculoI {
     
     private Marca marca;
     private Estado estado;
@@ -24,8 +24,9 @@ public abstract class Veiculo implements VeiculoI {
     private final double valorDeCompra;
     private String placa;
     private int ano;
+    private int id;
     
-    public Veiculo(Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano) {
+    public VeiculoC(int id,Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano) {
         this.locacao = null;
         this.marca = marca;
         this.estado = estado;

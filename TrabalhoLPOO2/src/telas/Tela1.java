@@ -7,7 +7,8 @@ package telas;
 
 import transitions.TransitionsForm;
 import classes.Cliente;
-import classes.Veiculo;
+import classes.VeiculoC;
+import java.util.List;
 import controller.ClienteController;
 import main.Main;
 
@@ -51,7 +52,7 @@ public class Tela1 extends TransitionsForm {
         //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
     }
     
-   /* public Cliente getContatoForm(){
+   /* public Cliente getClienteForm(){
        return this.formClienteView.getClienteForm();
     }
     */
@@ -59,7 +60,7 @@ public class Tela1 extends TransitionsForm {
         //tableClienteView.insertClienteTabela(cliente);
     }
     /*public Cliente getUpdateCliente(){
-        tableClienteView.getUpdateCliente();
+        formClienteView.getUpdateCliente();
     }*/
    public void updateCliente(Cliente cliente){
        //tableClienteView.updateCliente();
@@ -387,7 +388,7 @@ public class Tela1 extends TransitionsForm {
         DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
         Cliente ClienteExclud = Cliente.getCliente(selectedRow);
         cpf = ClienteExclud.getCPF();
-        Veiculo[] veiculosLocados = Main.getVeiculosLocados();
+        VeiculoC[] veiculosLocados = Main.getVeiculosLocados();
         for (int i = 0; i < veiculosLocados.length; i++) {
             if (veiculosLocados[i].getLocacao().getCliente().getCPF() == cpf) {
                 hasLocacao = true;

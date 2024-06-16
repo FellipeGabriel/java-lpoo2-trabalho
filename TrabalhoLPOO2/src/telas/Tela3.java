@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import enums.Marca;
@@ -17,7 +18,8 @@ import enums.Estado;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
-import classes.Veiculo;
+import controller.VeiculoController;
+import model.Veiculo;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -33,7 +35,35 @@ public class Tela3 extends TransitionsForm {
         fillTable(Main.getVeiculosDisponiveis());
         applyMask();
     }
-    
+    public void setControllerVeiculo(VeiculoController controller){
+        //botoesView.setController(controller);
+    }
+    public void initView(){
+        //tableVeiculoView.setjanelaView(this);
+        //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
+    }
+    /*public Veiculo getVeiculoForm(){
+        return this.formVeiculoView.getCleinteForm();
+    }*/
+    /*public veiculo getUpdateVeiculo(){
+        return tableVeiculoView.getUpdateVeiculo();
+    }*/
+    public int getNumberOperation(){
+        return 3;
+    }
+    //atualiza o estado do veiculo
+    public void updateVeiculo(Veiculo veiculo){
+        //tableVeiculoView.updateVeiuclo();
+    }
+    public void showListVeiculo(List<Veiculo> lista){
+        //tableVeiculoView.setListTableVeiculo(lista);
+    }
+    public void apresentaInfo (String info){
+        JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
+   }
+   public void apresentaErro(String erro){
+        JOptionPane.showMessageDialog(null, erro +"\n" ,"Erro", JOptionPane.ERROR_MESSAGE);
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

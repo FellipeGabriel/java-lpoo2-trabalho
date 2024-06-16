@@ -50,7 +50,7 @@ public class ClienteController {
             clienteDAO.update(cliente);
             view.updateCliente(cliente);
         }catch(Exception ex){
-            view.apresentaErro("Erro ao apresentar cliente");
+            view.apresentaErro("Erro ao atualizar cliente");
         }
     }
     

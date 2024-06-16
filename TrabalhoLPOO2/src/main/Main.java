@@ -1,6 +1,5 @@
 package main;
 
-import classes.Veiculo;
 import telas.Tela1;
 import telas.Tela2;
 import telas.Tela3;
@@ -11,6 +10,7 @@ import componentesMain.NavigationBackgroundColor;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import classes.Cliente;
+import model.Veiculo;
 
 public class Main extends javax.swing.JFrame {
 

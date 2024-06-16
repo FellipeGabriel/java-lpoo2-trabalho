@@ -10,6 +10,7 @@ import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
 import enums.ModeloMotocicleta;
+import model.Veiculo;
 
 /**
  *
@@ -19,8 +20,8 @@ public class Motocicleta extends Veiculo {
     
     private final ModeloMotocicleta modelo;
     
-    public Motocicleta(Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano, ModeloMotocicleta modelo) {
-        super(marca, categoria, estado, valorDeCompra, placa, ano);
+    public Motocicleta(int id,Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano, ModeloMotocicleta modelo) {
+        super(id,marca, categoria, estado, valorDeCompra, placa, ano);
         this.modelo = modelo;
     };
     
