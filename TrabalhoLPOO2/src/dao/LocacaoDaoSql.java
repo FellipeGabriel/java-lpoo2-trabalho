@@ -4,6 +4,9 @@ import model.Locacao;
 import model.Cliente;
 import model.Veiculo;
 import db.DatabaseConnection;
+import enums.Categoria;
+import enums.Estado;
+import enums.Marca;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,13 +41,12 @@ public class LocacaoDaoSql implements DAO<Locacao> {
                 dataInicio.setTime(rs.getDate("data_inicio"));
                 Calendar dataFim = Calendar.getInstance();
                 dataFim.setTime(rs.getDate("data_fim"));
-                
-                // Buscar Cliente e Veiculo do bd usando seus respectivos DAOs
+
                 ClienteDaoSql clienteDao = new ClienteDaoSql();
                 VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
                 Cliente cliente = clienteDao.get(rs.getInt("cliente_id"));
                 Veiculo veiculo = veiculoDao.get(rs.getInt("veiculo_id"));
-                
+
                 locacao = new Locacao(
                         rs.getInt("id"),
                         (int) ((dataFim.getTimeInMillis() - dataInicio.getTimeInMillis()) / (1000 * 60 * 60 * 24)),
@@ -63,20 +65,19 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         String sql = "SELECT * FROM Locacao";
         List<Locacao> locacoes = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Calendar dataInicio = Calendar.getInstance();
                 dataInicio.setTime(rs.getDate("data_inicio"));
                 Calendar dataFim = Calendar.getInstance();
                 dataFim.setTime(rs.getDate("data_fim"));
-                
-                // Buscar Cliente e Veiculo do bd usando seus respectivos DAOs
+
                 ClienteDaoSql clienteDao = new ClienteDaoSql();
                 VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
                 Cliente cliente = clienteDao.get(rs.getInt("cliente_id"));
                 Veiculo veiculo = veiculoDao.get(rs.getInt("veiculo_id"));
-                
+
                 Locacao locacao = new Locacao(
                         rs.getInt("id"),
                         (int) ((dataFim.getTimeInMillis() - dataInicio.getTimeInMillis()) / (1000 * 60 * 60 * 24)),
@@ -112,6 +113,14 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteAll() throws SQLException {
+        String sql = "DELETE FROM Locacao";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
     }

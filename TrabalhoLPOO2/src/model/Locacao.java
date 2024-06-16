@@ -87,6 +87,6 @@ public class Locacao {
     }
 
     public double getValorTotal() {
-        return valor;
+        return valor * dias;
     }
 }

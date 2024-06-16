@@ -11,13 +11,21 @@ public class ClienteDaoSql implements DAO<Cliente> {
     public void insert(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO Cliente (nome, sobrenome, rg, cpf, endereco) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getSobrenome());
             stmt.setString(3, cliente.getRg());
             stmt.setString(4, cliente.getCpf());
             stmt.setString(5, cliente.getEndereco());
             stmt.executeUpdate();
+            
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    cliente.setId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Falha ao inserir o cliente, nenhum ID obtido.");
+                }
+            }
         }
     }
 
@@ -86,6 +94,14 @@ public class ClienteDaoSql implements DAO<Cliente> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteAll() throws SQLException {
+        String sql = "DELETE FROM Cliente";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
     }
