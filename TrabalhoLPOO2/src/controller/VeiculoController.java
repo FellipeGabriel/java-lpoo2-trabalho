@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.VeiculoDaoSql;
+import model.dao.VeiculoDaoSql;
 import model.Veiculo;
 import telas.Tela2;
 

@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 public class DaoFactory {
     public static DAO<?> getDao(DaoType type) {

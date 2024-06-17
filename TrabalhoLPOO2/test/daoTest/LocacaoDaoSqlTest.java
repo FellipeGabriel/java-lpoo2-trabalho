@@ -1,8 +1,8 @@
 package daoTest;
 
-import dao.ClienteDaoSql;
-import dao.LocacaoDaoSql;
-import dao.VeiculoDaoSql;
+import model.dao.ClienteDaoSql;
+import model.dao.LocacaoDaoSql;
+import model.dao.VeiculoDaoSql;
 import enums.Categoria;
 import enums.Estado;
 import enums.Marca;

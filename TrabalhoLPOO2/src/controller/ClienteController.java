@@ -11,7 +11,7 @@ package controller;
 
 import model.Cliente;
 import telas.Tela1;
-import dao.ClienteDaoSql;
+import model.dao.ClienteDaoSql;
 
 
 public class ClienteController {

@@ -1,7 +1,7 @@
 package daoTest;
 
-import dao.ClienteDaoSql;
-import dao.LocacaoDaoSql;
+import model.dao.ClienteDaoSql;
+import model.dao.LocacaoDaoSql;
 import model.Cliente;
 import org.junit.After;
 import org.junit.Before;

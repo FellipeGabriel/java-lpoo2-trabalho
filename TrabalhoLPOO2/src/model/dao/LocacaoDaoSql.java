@@ -1,10 +1,8 @@
-package dao;
+package model.dao;
 
 import model.Locacao;
 import model.Cliente;
 import model.Veiculo;
-import db.DatabaseConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -118,6 +116,7 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         }
     }
 
+    @Override
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM Locacao";
         try (Connection conn = DatabaseConnection.getConnection();
