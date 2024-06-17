@@ -21,8 +21,12 @@ public class Locacao {
 
     // Construtor com id
     public Locacao(int id, int dias, double valor, Calendar data, Cliente cliente, Veiculo veiculo) {
-        this(dias, valor, data, cliente, veiculo);
         this.id = id;
+        this.dias = dias;
+        this.valor = valor;
+        this.data = data;
+        this.cliente = cliente;
+        this.veiculo = veiculo;
     }
 
     // Getters e Setters
@@ -83,12 +87,12 @@ public class Locacao {
     }
 
     public Calendar getDataInicio() {
-        return data;
+        return data; 
     }
 
     public Calendar getDataFim() {
         Calendar dataFim = (Calendar) data.clone();
-        dataFim.add(Calendar.DAY_OF_MONTH, dias);
+        dataFim.add(Calendar.DAY_OF_MONTH, dias); // Aqui ele adiciona os dias ao início para obter a data de fim
         return dataFim;
     }
 

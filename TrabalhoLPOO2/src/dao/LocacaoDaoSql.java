@@ -11,7 +11,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LocacaoDaoSql implements DAO<Locacao> {
-
     @Override
     public void insert(Locacao locacao) throws SQLException {
         String sql = "INSERT INTO Locacao (dias, valor, data, cliente_id, veiculo_id) VALUES (?, ?, ?, ?, ?)";
@@ -19,15 +18,17 @@ public class LocacaoDaoSql implements DAO<Locacao> {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, locacao.getDias());
             stmt.setDouble(2, locacao.getValor());
-            stmt.setDate(3, new java.sql.Date(locacao.getData().getTimeInMillis()));
-            stmt.setInt(4, locacao.getClienteId());
-            stmt.setInt(5, locacao.getVeiculoId());
+            stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
+            stmt.setInt(4, locacao.getCliente().getId());
+            stmt.setInt(5, locacao.getVeiculo().getId());
             stmt.executeUpdate();
 
-            // Recuperar o id gerado automaticamente
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                locacao.setId(generatedKeys.getInt(1));
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    locacao.setId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Falha ao inserir a locação, nenhum ID obtido.");
+                }
             }
         }
     }
@@ -67,8 +68,8 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         String sql = "SELECT * FROM Locacao";
         List<Locacao> locacoes = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("data"));
@@ -99,9 +100,9 @@ public class LocacaoDaoSql implements DAO<Locacao> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, locacao.getDias());
             stmt.setDouble(2, locacao.getValor());
-            stmt.setDate(3, new java.sql.Date(locacao.getData().getTimeInMillis()));
-            stmt.setInt(4, locacao.getClienteId());
-            stmt.setInt(5, locacao.getVeiculoId());
+            stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
+            stmt.setInt(4, locacao.getCliente().getId());
+            stmt.setInt(5, locacao.getVeiculo().getId());
             stmt.setInt(6, locacao.getId());
             stmt.executeUpdate();
         }
@@ -113,6 +114,14 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteAll() throws SQLException {
+        String sql = "DELETE FROM Locacao";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
     }
