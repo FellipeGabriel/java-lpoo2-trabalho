@@ -17,25 +17,22 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
 
     @Override
     public void insert(Veiculo veiculo) throws SQLException {
-        String sql = "INSERT INTO Veiculo (marca, estado, categoria, modelo_tipo, modelo, valor_de_compra, placa, ano) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Veiculo (marca, estado, categoria, modelo, valor_de_compra, placa, ano) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, veiculo.getMarca().name());
             stmt.setString(2, veiculo.getEstado().name());
             stmt.setString(3, veiculo.getCategoria().name());
             if (veiculo.getModeloAutomovel() != null) {
-                stmt.setString(4, "Automovel");
-                stmt.setString(5, veiculo.getModeloAutomovel().name());
+                stmt.setString(4, veiculo.getModeloAutomovel().name());
             } else if (veiculo.getModeloMotocicleta() != null) {
-                stmt.setString(4, "Motocicleta");
-                stmt.setString(5, veiculo.getModeloMotocicleta().name());
+                stmt.setString(4, veiculo.getModeloMotocicleta().name());
             } else if (veiculo.getModeloVan() != null) {
-                stmt.setString(4, "Van");
-                stmt.setString(5, veiculo.getModeloVan().name());
+                stmt.setString(4, veiculo.getModeloVan().name());
             }
-            stmt.setDouble(6, veiculo.getValorDeCompra());
-            stmt.setString(7, veiculo.getPlaca());
-            stmt.setInt(8, veiculo.getAno());
+            stmt.setDouble(5, veiculo.getValorDeCompra());
+            stmt.setString(6, veiculo.getPlaca());
+            stmt.setInt(7, veiculo.getAno());
             stmt.executeUpdate();
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -56,40 +53,44 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                String modeloTipo = rs.getString("modelo_tipo");
-                if ("Automovel".equals(modeloTipo)) {
-                    veiculo = new Veiculo(
-                            rs.getInt("id"),
-                            Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
-                            Estado.valueOf(rs.getString("estado")),
-                            rs.getDouble("valor_de_compra"),
-                            rs.getString("placa"),
-                            rs.getInt("ano"),
-                            ModeloAutomovel.valueOf(rs.getString("modelo"))
-                    );
-                } else if ("Motocicleta".equals(modeloTipo)) {
-                    veiculo = new Veiculo(
-                            rs.getInt("id"),
-                            Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
-                            Estado.valueOf(rs.getString("estado")),
-                            rs.getDouble("valor_de_compra"),
-                            rs.getString("placa"),
-                            rs.getInt("ano"),
-                            ModeloMotocicleta.valueOf(rs.getString("modelo"))
-                    );
-                } else if ("Van".equals(modeloTipo)) {
-                    veiculo = new Veiculo(
-                            rs.getInt("id"),
-                            Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
-                            Estado.valueOf(rs.getString("estado")),
-                            rs.getDouble("valor_de_compra"),
-                            rs.getString("placa"),
-                            rs.getInt("ano"),
-                            ModeloVan.valueOf(rs.getString("modelo"))
-                    );
+                Categoria categoria = Categoria.valueOf(rs.getString("categoria"));
+                if (categoria == Categoria.POPULAR || categoria == Categoria.INTERMEDIÁRIO || categoria == Categoria.LUXO) {
+                    try {
+                        veiculo = new Veiculo(
+                                rs.getInt("id"),
+                                Marca.valueOf(rs.getString("marca")),
+                                categoria,
+                                Estado.valueOf(rs.getString("estado")),
+                                rs.getDouble("valor_de_compra"),
+                                rs.getString("placa"),
+                                rs.getInt("ano"),
+                                ModeloAutomovel.valueOf(rs.getString("modelo"))
+                        );
+                    } catch (IllegalArgumentException e1) {
+                        try {
+                            veiculo = new Veiculo(
+                                    rs.getInt("id"),
+                                    Marca.valueOf(rs.getString("marca")),
+                                    categoria,
+                                    Estado.valueOf(rs.getString("estado")),
+                                    rs.getDouble("valor_de_compra"),
+                                    rs.getString("placa"),
+                                    rs.getInt("ano"),
+                                    ModeloMotocicleta.valueOf(rs.getString("modelo"))
+                            );
+                        } catch (IllegalArgumentException e2) {
+                            veiculo = new Veiculo(
+                                    rs.getInt("id"),
+                                    Marca.valueOf(rs.getString("marca")),
+                                    categoria,
+                                    Estado.valueOf(rs.getString("estado")),
+                                    rs.getDouble("valor_de_compra"),
+                                    rs.getString("placa"),
+                                    rs.getInt("ano"),
+                                    ModeloVan.valueOf(rs.getString("modelo"))
+                            );
+                        }
+                    }
                 }
             }
         }
@@ -104,41 +105,43 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                String modeloTipo = rs.getString("modelo_tipo");
+                Categoria categoria = Categoria.valueOf(rs.getString("categoria"));
                 Veiculo veiculo = null;
-                if ("Automovel".equals(modeloTipo)) {
+                try {
                     veiculo = new Veiculo(
                             rs.getInt("id"),
                             Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
+                            categoria,
                             Estado.valueOf(rs.getString("estado")),
                             rs.getDouble("valor_de_compra"),
                             rs.getString("placa"),
                             rs.getInt("ano"),
                             ModeloAutomovel.valueOf(rs.getString("modelo"))
                     );
-                } else if ("Motocicleta".equals(modeloTipo)) {
-                    veiculo = new Veiculo(
-                            rs.getInt("id"),
-                            Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
-                            Estado.valueOf(rs.getString("estado")),
-                            rs.getDouble("valor_de_compra"),
-                            rs.getString("placa"),
-                            rs.getInt("ano"),
-                            ModeloMotocicleta.valueOf(rs.getString("modelo"))
-                    );
-                } else if ("Van".equals(modeloTipo)) {
-                    veiculo = new Veiculo(
-                            rs.getInt("id"),
-                            Marca.valueOf(rs.getString("marca")),
-                            Categoria.valueOf(rs.getString("categoria")),
-                            Estado.valueOf(rs.getString("estado")),
-                            rs.getDouble("valor_de_compra"),
-                            rs.getString("placa"),
-                            rs.getInt("ano"),
-                            ModeloVan.valueOf(rs.getString("modelo"))
-                    );
+                } catch (IllegalArgumentException e1) {
+                    try {
+                        veiculo = new Veiculo(
+                                rs.getInt("id"),
+                                Marca.valueOf(rs.getString("marca")),
+                                categoria,
+                                Estado.valueOf(rs.getString("estado")),
+                                rs.getDouble("valor_de_compra"),
+                                rs.getString("placa"),
+                                rs.getInt("ano"),
+                                ModeloMotocicleta.valueOf(rs.getString("modelo"))
+                        );
+                    } catch (IllegalArgumentException e2) {
+                        veiculo = new Veiculo(
+                                rs.getInt("id"),
+                                Marca.valueOf(rs.getString("marca")),
+                                categoria,
+                                Estado.valueOf(rs.getString("estado")),
+                                rs.getDouble("valor_de_compra"),
+                                rs.getString("placa"),
+                                rs.getInt("ano"),
+                                ModeloVan.valueOf(rs.getString("modelo"))
+                        );
+                    }
                 }
                 veiculos.add(veiculo);
             }
@@ -148,26 +151,23 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
 
     @Override
     public void update(Veiculo veiculo) throws SQLException {
-        String sql = "UPDATE Veiculo SET marca = ?, estado = ?, categoria = ?, modelo_tipo = ?, modelo = ?, valor_de_compra = ?, placa = ?, ano = ? WHERE id = ?";
+        String sql = "UPDATE Veiculo SET marca = ?, estado = ?, categoria = ?, modelo = ?, valor_de_compra = ?, placa = ?, ano = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, veiculo.getMarca().name());
             stmt.setString(2, veiculo.getEstado().name());
             stmt.setString(3, veiculo.getCategoria().name());
             if (veiculo.getModeloAutomovel() != null) {
-                stmt.setString(4, "Automovel");
-                stmt.setString(5, veiculo.getModeloAutomovel().name());
+                stmt.setString(4, veiculo.getModeloAutomovel().name());
             } else if (veiculo.getModeloMotocicleta() != null) {
-                stmt.setString(4, "Motocicleta");
-                stmt.setString(5, veiculo.getModeloMotocicleta().name());
+                stmt.setString(4, veiculo.getModeloMotocicleta().name());
             } else if (veiculo.getModeloVan() != null) {
-                stmt.setString(4, "Van");
-                stmt.setString(5, veiculo.getModeloVan().name());
+                stmt.setString(4, veiculo.getModeloVan().name());
             }
-            stmt.setDouble(6, veiculo.getValorDeCompra());
-            stmt.setString(7, veiculo.getPlaca());
-            stmt.setInt(8, veiculo.getAno());
-            stmt.setInt(9, veiculo.getId());
+            stmt.setDouble(5, veiculo.getValorDeCompra());
+            stmt.setString(6, veiculo.getPlaca());
+            stmt.setInt(7, veiculo.getAno());
+            stmt.setInt(8, veiculo.getId());
             stmt.executeUpdate();
         }
     }

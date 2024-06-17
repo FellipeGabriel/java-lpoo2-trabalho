@@ -118,6 +118,7 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         }
     }
 
+    @Override
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM Locacao";
         try (Connection conn = DatabaseConnection.getConnection();
