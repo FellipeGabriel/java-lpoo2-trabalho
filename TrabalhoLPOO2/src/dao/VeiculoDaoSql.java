@@ -181,4 +181,14 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
             stmt.executeUpdate();
         }
     }
+    
+    @Override
+    public void deleteAll() throws SQLException {
+        String sql = "DELETE FROM Veiculo";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+    }
+}
+
 }

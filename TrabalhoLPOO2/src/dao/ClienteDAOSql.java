@@ -97,7 +97,8 @@ public class ClienteDaoSql implements DAO<Cliente> {
             stmt.executeUpdate();
         }
     }
-
+    
+    @Override
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM Cliente";
         try (Connection conn = DatabaseConnection.getConnection();
