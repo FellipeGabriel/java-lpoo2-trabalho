@@ -38,7 +38,7 @@ public class ClienteDaoSqlTest {
 
     @Test
     public void testInsert() throws SQLException {
-        Cliente cliente = new Cliente(0, "Shrek", "Silva", "123456789", "123.456.789-10", "Rua Almir Nelson de Almeida, 281");
+        Cliente cliente = new Cliente("Shrek", "Silva", "123456789", "123.456.789-10", "Rua Almir Nelson de Almeida, 281");
         clienteDao.insert(cliente);
         Cliente clienteInserido = clienteDao.get(cliente.getId());
         assertNotNull(clienteInserido);
@@ -47,7 +47,7 @@ public class ClienteDaoSqlTest {
 
     @Test
     public void testGet() throws SQLException {
-        Cliente cliente = new Cliente(0, "Nina", "Oliveira", "987654321", "987.654.321-00", "Rua da Nina, 456");
+        Cliente cliente = new Cliente("Nina", "Oliveira", "987654321", "987.654.321-00", "Rua da Nina, 456");
         clienteDao.insert(cliente);
         Cliente clienteObtido = clienteDao.get(cliente.getId());
         assertNotNull(clienteObtido);
@@ -56,8 +56,8 @@ public class ClienteDaoSqlTest {
 
     @Test
     public void testGetAll() throws SQLException {
-        Cliente cliente1 = new Cliente(0, "Luiz", "Snows", "111222333", "111.222.333-44", "Rua Snow, 789");
-        Cliente cliente2 = new Cliente(0, "Thomas", "Turbando", "444555666", "444.555.666-77", "Rua Sus, 101");
+        Cliente cliente1 = new Cliente("Luiz", "Snows", "111222333", "111.222.333-44", "Rua Snow, 789");
+        Cliente cliente2 = new Cliente("Thomas", "Turbando", "444555666", "444.555.666-77", "Rua Sus, 101");
         clienteDao.insert(cliente1);
         clienteDao.insert(cliente2);
         List<Cliente> clientes = clienteDao.getAll();
@@ -66,7 +66,7 @@ public class ClienteDaoSqlTest {
 
     @Test
     public void testUpdate() throws SQLException {
-        Cliente cliente = new Cliente(0, "Paulo", "Bayer", "777888999", "777.888.999-00", "Rua Do Nargas, 102");
+        Cliente cliente = new Cliente("Paulo", "Bayer", "777888999", "777.888.999-00", "Rua Do Nargas, 102");
         clienteDao.insert(cliente);
         cliente.setNome("Paulo Atualizado");
         clienteDao.update(cliente);
@@ -77,7 +77,7 @@ public class ClienteDaoSqlTest {
 
     @Test
     public void testDelete() throws SQLException {
-        Cliente cliente = new Cliente(0, "Michael", "Jackson", "000111222", "000.111.222-33", "Rua Ariouki kkkkkkk, 203");
+        Cliente cliente = new Cliente("Michael", "Jackson", "000111222", "000.111.222-33", "Rua Ariouki kkkkkkk, 203");
         clienteDao.insert(cliente);
         clienteDao.delete(cliente.getId());
         Cliente clienteDeletado = clienteDao.get(cliente.getId());

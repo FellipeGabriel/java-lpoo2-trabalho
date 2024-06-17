@@ -8,8 +8,18 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
+    // Construtor com ID (usado para quando o ID é conhecido)
     public Cliente(int id, String nome, String sobrenome, String rg, String cpf, String endereco) {
         this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.endereco = endereco;
+    }
+
+    // Novo construtor sem ID (usado para criação de novo cliente)
+    public Cliente(String nome, String sobrenome, String rg, String cpf, String endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.rg = rg;

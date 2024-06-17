@@ -4,9 +4,6 @@ import model.Locacao;
 import model.Cliente;
 import model.Veiculo;
 import db.DatabaseConnection;
-import enums.Categoria;
-import enums.Estado;
-import enums.Marca;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,17 +11,24 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LocacaoDaoSql implements DAO<Locacao> {
+
     @Override
     public void insert(Locacao locacao) throws SQLException {
-        String sql = "INSERT INTO Locacao (cliente_id, veiculo_id, data_inicio, data_fim, valor_total) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Locacao (dias, valor, data, cliente_id, veiculo_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, locacao.getCliente().getId());
-            stmt.setInt(2, locacao.getVeiculo().getId());
-            stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
-            stmt.setDate(4, new java.sql.Date(locacao.getDataFim().getTimeInMillis()));
-            stmt.setDouble(5, locacao.getValorTotal());
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, locacao.getDias());
+            stmt.setDouble(2, locacao.getValor());
+            stmt.setDate(3, new java.sql.Date(locacao.getData().getTimeInMillis()));
+            stmt.setInt(4, locacao.getClienteId());
+            stmt.setInt(5, locacao.getVeiculoId());
             stmt.executeUpdate();
+
+            // Recuperar o id gerado automaticamente
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                locacao.setId(generatedKeys.getInt(1));
+            }
         }
     }
 
@@ -37,10 +41,8 @@ public class LocacaoDaoSql implements DAO<Locacao> {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Calendar dataInicio = Calendar.getInstance();
-                dataInicio.setTime(rs.getDate("data_inicio"));
-                Calendar dataFim = Calendar.getInstance();
-                dataFim.setTime(rs.getDate("data_fim"));
+                Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("data"));
 
                 ClienteDaoSql clienteDao = new ClienteDaoSql();
                 VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
@@ -49,9 +51,9 @@ public class LocacaoDaoSql implements DAO<Locacao> {
 
                 locacao = new Locacao(
                         rs.getInt("id"),
-                        (int) ((dataFim.getTimeInMillis() - dataInicio.getTimeInMillis()) / (1000 * 60 * 60 * 24)),
-                        rs.getDouble("valor_total"),
-                        dataInicio,
+                        rs.getInt("dias"),
+                        rs.getDouble("valor"),
+                        data,
                         cliente,
                         veiculo
                 );
@@ -68,10 +70,8 @@ public class LocacaoDaoSql implements DAO<Locacao> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Calendar dataInicio = Calendar.getInstance();
-                dataInicio.setTime(rs.getDate("data_inicio"));
-                Calendar dataFim = Calendar.getInstance();
-                dataFim.setTime(rs.getDate("data_fim"));
+                Calendar data = Calendar.getInstance();
+                data.setTime(rs.getDate("data"));
 
                 ClienteDaoSql clienteDao = new ClienteDaoSql();
                 VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
@@ -80,9 +80,9 @@ public class LocacaoDaoSql implements DAO<Locacao> {
 
                 Locacao locacao = new Locacao(
                         rs.getInt("id"),
-                        (int) ((dataFim.getTimeInMillis() - dataInicio.getTimeInMillis()) / (1000 * 60 * 60 * 24)),
-                        rs.getDouble("valor_total"),
-                        dataInicio,
+                        rs.getInt("dias"),
+                        rs.getDouble("valor"),
+                        data,
                         cliente,
                         veiculo
                 );
@@ -94,14 +94,14 @@ public class LocacaoDaoSql implements DAO<Locacao> {
 
     @Override
     public void update(Locacao locacao) throws SQLException {
-        String sql = "UPDATE Locacao SET cliente_id = ?, veiculo_id = ?, data_inicio = ?, data_fim = ?, valor_total = ? WHERE id = ?";
+        String sql = "UPDATE Locacao SET dias = ?, valor = ?, data = ?, cliente_id = ?, veiculo_id = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, locacao.getCliente().getId());
-            stmt.setInt(2, locacao.getVeiculo().getId());
-            stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
-            stmt.setDate(4, new java.sql.Date(locacao.getDataFim().getTimeInMillis()));
-            stmt.setDouble(5, locacao.getValorTotal());
+            stmt.setInt(1, locacao.getDias());
+            stmt.setDouble(2, locacao.getValor());
+            stmt.setDate(3, new java.sql.Date(locacao.getData().getTimeInMillis()));
+            stmt.setInt(4, locacao.getClienteId());
+            stmt.setInt(5, locacao.getVeiculoId());
             stmt.setInt(6, locacao.getId());
             stmt.executeUpdate();
         }
@@ -113,14 +113,6 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            stmt.executeUpdate();
-        }
-    }
-
-    public void deleteAll() throws SQLException {
-        String sql = "DELETE FROM Locacao";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
     }

@@ -17,27 +17,33 @@ public class VeiculoDaoSql implements DAO<Veiculo> {
 
     @Override
     public void insert(Veiculo veiculo) throws SQLException {
-        String sql = "INSERT INTO Veiculo (id, marca, estado, categoria, modelo_tipo, modelo, valor_de_compra, placa, ano) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Veiculo (marca, estado, categoria, modelo_tipo, modelo, valor_de_compra, placa, ano) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, veiculo.getId());
-            stmt.setString(2, veiculo.getMarca().name());
-            stmt.setString(3, veiculo.getEstado().name());
-            stmt.setString(4, veiculo.getCategoria().name());
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, veiculo.getMarca().name());
+            stmt.setString(2, veiculo.getEstado().name());
+            stmt.setString(3, veiculo.getCategoria().name());
             if (veiculo.getModeloAutomovel() != null) {
-                stmt.setString(5, "Automovel");
-                stmt.setString(6, veiculo.getModeloAutomovel().name());
+                stmt.setString(4, "Automovel");
+                stmt.setString(5, veiculo.getModeloAutomovel().name());
             } else if (veiculo.getModeloMotocicleta() != null) {
-                stmt.setString(5, "Motocicleta");
-                stmt.setString(6, veiculo.getModeloMotocicleta().name());
+                stmt.setString(4, "Motocicleta");
+                stmt.setString(5, veiculo.getModeloMotocicleta().name());
             } else if (veiculo.getModeloVan() != null) {
-                stmt.setString(5, "Van");
-                stmt.setString(6, veiculo.getModeloVan().name());
+                stmt.setString(4, "Van");
+                stmt.setString(5, veiculo.getModeloVan().name());
             }
-            stmt.setDouble(7, veiculo.getValorDeCompra());
-            stmt.setString(8, veiculo.getPlaca());
-            stmt.setInt(9, veiculo.getAno());
+            stmt.setDouble(6, veiculo.getValorDeCompra());
+            stmt.setString(7, veiculo.getPlaca());
+            stmt.setInt(8, veiculo.getAno());
             stmt.executeUpdate();
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    System.out.println("Inserted ID: " + generatedId);
+                }
+            }
         }
     }
 
