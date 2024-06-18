@@ -66,9 +66,11 @@ public class ClienteDaoSql implements DAO<Cliente> {
                         rs.getString("cpf"),
                         rs.getString("endereco")
                 );
+                
                 clientes.add(cliente);
             }
         }
+        System.out.println("Entrei no dao: "+clientes);
         return clientes;
     }
 

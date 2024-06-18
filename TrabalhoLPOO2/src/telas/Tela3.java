@@ -1,7 +1,7 @@
 package telas;
 
 import transitions.TransitionsForm;
-import main.Main;
+/*import main.Main;
 import classes.Cliente;
 
 import java.text.ParseException;
@@ -21,12 +21,12 @@ import classes.VeiculoC;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
-
+*/
 /**
  * @author RAVEN
  */
 public class Tela3 extends TransitionsForm {
-
+/*
     public Tela3() {
         initComponents();
         popularComboBoxes();
@@ -800,4 +800,5 @@ public class Tela3 extends TransitionsForm {
     private javax.swing.JTable tableFiltrada;
     private javax.swing.JRadioButton vanRB3;
     // End of variables declaration//GEN-END:variables
+*/
 }
