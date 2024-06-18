@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import model.dao.VeiculoDaoSql;
+import model.dao.VeiculoDaoSql; // Alterei de model.dao.VeiculoDaoSql para dao.VeiculoDaoSql
 import model.Veiculo;
 import telas.Tela2;
 
@@ -49,7 +45,12 @@ public class VeiculoController {
             }
             switch(operation){
                 case 3:
-                    
+                    int id = veiculo.getId();
+                    double dias = veiculo.getValorDiariaLocacao();
+                    veiculo.locar(id, dias); // Adicionei a chamada do método locar
+                    break;
+                default:
+                    return; // Adicionei o ponto e vírgula faltante
             }
             veiculoDAO.update(veiculo);
             view.updateVeiculo(veiculo);

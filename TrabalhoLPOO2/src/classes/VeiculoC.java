@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package classes;
-
 import enums.Categoria;
 import enums.Marca;
 import enums.Estado;
@@ -37,7 +36,7 @@ public abstract class VeiculoC implements VeiculoI {
         this.id = id;
     }
     
-    public void locar(int dias, double valor, Calendar data, Cliente cliente) {
+    public void locar(int dias, double valor, Calendar data, ClienteC cliente) {
         if (this.estado != Estado.VENDIDO) {
             this.estado = Estado.LOCADO;
             this.locacao = new Locacao(dias,valor,data, cliente){

@@ -5,7 +5,7 @@
 package classes;
 
 import java.util.Calendar;
-
+import model.Cliente;
 import enums.Categoria;
 import enums.Estado;
 import enums.Marca;
@@ -46,7 +46,7 @@ public class Motocicleta extends VeiculoC {
         }
     }
 
-    @Override
+    
     public void locar(int dias, Calendar data, Cliente cliente) {
         throw new UnsupportedOperationException("Método locar não implementado em Motocicleta");
     }

@@ -10,7 +10,7 @@ import componentesMain.EventNavigationBar;
 import componentesMain.NavigationBackgroundColor;
 import java.awt.Color;
 import javax.swing.ImageIcon;
-import classes.Cliente;
+import classes.ClienteC;
 import model.Veiculo;
 
 public class Main extends javax.swing.JFrame {

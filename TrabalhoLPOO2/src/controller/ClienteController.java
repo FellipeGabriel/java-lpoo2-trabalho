@@ -1,18 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
+
+import model.Cliente;
+import telas.Tela1;
+import model.dao.ClienteDaoSql; 
+
+import java.util.List; 
 
 /**
  *
  * @author janai
  */
-
-import model.Cliente;
-import telas.Tela1;
-import model.dao.ClienteDaoSql;
-
 
 public class ClienteController {
     private Tela1 view; 
@@ -43,7 +40,7 @@ public class ClienteController {
     public void updateCliente(){
         try{
             Cliente cliente = view.getClienteUpdate();
-            if(cliente==null){
+            if(cliente == null){
                 view.apresentaInfo("Selecione um cliente para atualizar");
                 return;
             }
@@ -57,13 +54,14 @@ public class ClienteController {
     public void showCliente(){
         try{
             view.clearUpdateCliente();
-            List<Cliente> lista= this.clienteDAO.getAll();
+            List<Cliente> lista = this.clienteDAO.getAll();
             view.showListCliente(lista);
         }catch(Exception ex){
             ex.printStackTrace();
-            view.apresentaErro(erro);
+            view.apresentaErro("Erro ao mostrar cliente");
         }
     }
+    
     public void deleteCliente(){
         try{
             List<Cliente> listDelete = view.getClienteDelete();

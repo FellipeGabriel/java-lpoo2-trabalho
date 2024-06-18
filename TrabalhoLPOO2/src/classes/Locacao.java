@@ -4,6 +4,7 @@
  */
 package classes;
 import java.util.Calendar;
+import model.Cliente;
 /**
  * @author janai
  */
