@@ -47,7 +47,7 @@ public class Automovel extends VeiculoC {
     }
     
     @Override
-    public void locar(int dias, Calendar data, Cliente cliente) {
+    public void locar(int dias, Calendar data, ClienteC cliente) {
         throw new UnsupportedOperationException("Método locar não implementado em Automovel");
     }
 

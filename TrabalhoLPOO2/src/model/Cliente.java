@@ -8,8 +8,7 @@ public class Cliente {
     private String cpf;
     private String endereco;
 
-    public Cliente(int id, String nome, String sobrenome, String rg, String cpf, String endereco) {
-        this.id = id;
+    public Cliente(int id,String nome, String sobrenome, String rg, String cpf, String endereco) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.rg = rg;

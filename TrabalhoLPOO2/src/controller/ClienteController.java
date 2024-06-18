@@ -29,11 +29,12 @@ public class ClienteController {
         this.view.initView();
     }
     
-    public void createCliente(){
+    public void createCliente(Cliente cliente){
         try{
-            Cliente cliente = view.getClienteForm();
+            
             clienteDAO.insert(cliente);
             view.insertClienteView(cliente);
+            view.showListCliente(lista);
             view.apresentaInfo("Cliente criado");
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar cliente");

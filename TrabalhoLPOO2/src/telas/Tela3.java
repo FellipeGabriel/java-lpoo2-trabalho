@@ -18,6 +18,7 @@ import enums.Estado;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
+import controller.ClienteController;
 import controller.VeiculoController;
 import model.Veiculo;
 import javax.swing.table.DefaultTableModel;
@@ -35,11 +36,15 @@ public class Tela3 extends TransitionsForm {
         fillTable(Main.getVeiculosDisponiveis());
         applyMask();
     }
-    public void setControllerVeiculo(VeiculoController controller){
-        //botoesView.setController(controller);
+    public void setControllerVeiculo(VeiculoController controllerVeiculo){
+        //botoesView.setController(controllerVeiculo);
+    }
+    public void setControllerCliente(ClienteController controllerCliente){
+        //botoesView.setController(controllerCliente);
     }
     public void initView(){
         //tableVeiculoView.setjanelaView(this);
+        //tableClienteView.setjanelaView(this);
         //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
     }
     /*public Veiculo getVeiculoForm(){
@@ -49,7 +54,7 @@ public class Tela3 extends TransitionsForm {
         return tableVeiculoView.getUpdateVeiculo();
     }*/
     public int getNumberOperation(){
-        return 3;
+        return 3; // locar
     }
     //atualiza o estado do veiculo
     public void updateVeiculo(Veiculo veiculo){
@@ -255,6 +260,12 @@ public class Tela3 extends TransitionsForm {
         LocarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LocarButtonActionPerformed(evt);
+            }
+        });
+
+        DataTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DataTextFieldActionPerformed(evt);
             }
         });
 
@@ -707,6 +718,7 @@ public class Tela3 extends TransitionsForm {
             cpfCliente = Integer.parseInt(cpfClienteString);
         }
     
+        
         Cliente[] arrayClientes = Cliente.getAllClientes();
         Cliente[] informacoesEncontradas = null;
     
@@ -796,6 +808,10 @@ public class Tela3 extends TransitionsForm {
         }
 
     }//GEN-LAST:event_LocarButtonActionPerformed
+
+    private void DataTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DataTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

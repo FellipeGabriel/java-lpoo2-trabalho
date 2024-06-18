@@ -9,15 +9,15 @@ import java.util.Arrays;
  *
  * @author janai
  */
-public class Cliente implements ClienteI{
-    private static Cliente[] clientes;
+public class ClienteC implements ClienteI{
+    private static ClienteC[] clientes;
     private String name;
     private String sobreNome;
-    private int RG;
-    private int CPF;
+    private String RG;
+    private String CPF;
     private String endereco;
     
-    public Cliente(String name,String sobreNome, int RG,int CPF, String endereco){
+    public ClienteC(String name,String sobreNome, String RG,String CPF, String endereco){
         this.name=name;
         this.sobreNome=sobreNome;
         this.RG=RG;
@@ -25,23 +25,23 @@ public class Cliente implements ClienteI{
         this.endereco=endereco;
         CreateCliente();
     }
-    public static Cliente[] getClientes() {
+    public static ClienteC[] getClientes() {
         return clientes;
     }
     @Override
     public  void CreateCliente(){
         if (clientes == null) {
-            clientes = new Cliente[1];
+            clientes = new ClienteC[1];
             clientes[0] = this;
         } else {
-            Cliente[] N_clientes = Arrays.copyOf(clientes, clientes.length + 1);
+            ClienteC[] N_clientes = Arrays.copyOf(clientes, clientes.length + 1);
             N_clientes[clientes.length] = this;
             clientes = N_clientes;
         }
         
     };
     @Override
-    public void ChangeCliente(String name,String sobrenome,int RG,int CPF,String endereco){
+    public void ChangeCliente(String name,String sobrenome,String RG,String CPF,String endereco){
         this.name=name;
         this.sobreNome=sobrenome;
         this.RG=RG;
@@ -60,7 +60,7 @@ public class Cliente implements ClienteI{
             }
 
             if (index != -1) {
-                Cliente[] newClientes = new Cliente[clientes.length - 1];
+                ClienteC[] newClientes = new ClienteC[clientes.length - 1];
                 System.arraycopy(clientes, 0, newClientes, 0, index);
                 System.arraycopy(clientes, index + 1, newClientes, index, clientes.length - index - 1);
                 clientes = newClientes;
@@ -76,22 +76,22 @@ public class Cliente implements ClienteI{
         return this.sobreNome;
     }
     
-    public int getRG(){
+    public String getRG(){
         return this.RG;
     }
     
-    public int getCPF(){
+    public String getCPF(){
         return this.CPF;
     }
     
     public String getEndereco(){
         return this.endereco;
     }
-    public static Cliente getCliente(int index){
+    public static ClienteC getCliente(int index){
         return clientes[index];
     }
     
-    public static Cliente[] getAllClientes() {
+    public static ClienteC[] getAllClientes() {
         return clientes;
     }
 }
