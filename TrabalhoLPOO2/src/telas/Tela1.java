@@ -6,11 +6,8 @@
 package telas;
 
 import transitions.TransitionsForm;
-import model.Cliente;
+import classes.Cliente;
 import classes.VeiculoC;
-import classes.ClienteC;
-import java.util.List;
-import controller.ClienteController;
 import main.Main;
 
 import javax.swing.JOptionPane;
@@ -27,8 +24,6 @@ public class Tela1 extends TransitionsForm {
      */
     public Tela1() {
         initComponents();
-        
-        
         DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
         modeloTabela.setRowCount(0);
             Cliente [] arrayClientes = Cliente.getClientes();
@@ -45,41 +40,6 @@ public class Tela1 extends TransitionsForm {
             }
     }
 
-    public void setControllerCliente(ClienteController controller){
-        this.clienteController = controller;
-    }
-    public void initView(){
-        //tableClienteView.setJanelaView(this);
-        //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
-    }
-    
-    public void insertClienteView(Cliente cliente){
-        //tableClienteView.insertClienteTabela(cliente);
-    }
-    /*public Cliente getUpdateCliente(){
-        formClienteView.getUpdateCliente();
-    }*/
-   public void updateCliente(Cliente cliente){
-       //tableClienteView.updateCliente();
-   }
-   public void clearUpdateCliente(){
-       //formClienteView.clearUpdateCliente();
-   }
-   public void showListCliente(List<Cliente> lista){
-       //tableClienteView.setListTableCliente(lista);
-   }
-   /*public List<Cliente> getClienteDelete(){
-       return this.tableCleinteView.getCleinteDelete();
-   }*/
-   public void deleteClienteView(List<Cliente> listDelete){
-       //tableClienteView.deleteCliente(listDelete);
-   }
-   public void apresentaInfo (String info){
-        JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
-   }
-   public void apresentaErro(String erro){
-        JOptionPane.showMessageDialog(null, erro +"\n" ,"Erro", JOptionPane.ERROR_MESSAGE);
-   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -317,13 +277,14 @@ public class Tela1 extends TransitionsForm {
         // TODO add your handling code here:
         String nome = inputName.getText();
         String sobrenome = inputSobreNome.getText();
-        String RG = inputRG.getText();
-        String CPF = inputCPF.getText();
+        String S_RG = inputRG.getText();
+        String S_CPF = inputCPF.getText();
         String endereco = inputEndereco.getText();
         try {
+            int RG = Integer.parseInt(S_RG);
+            int CPF = Integer.parseInt(S_CPF);
             
-            ClienteC novoCliente = new ClienteC(nome, sobrenome, RG, CPF, endereco);
-            clienteController.createCliente(novoCliente);
+            Cliente novoCliente = new Cliente(nome, sobrenome, RG, CPF, endereco);
             //cria linha na tabela
             DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
             modeloTabela.setRowCount(0);
@@ -419,6 +380,4 @@ public class Tela1 extends TransitionsForm {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableClient;
     // End of variables declaration//GEN-END:variables
-    private ClienteController clienteController;
-    
 }

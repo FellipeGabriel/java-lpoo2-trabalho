@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.VeiculoDaoSql;
+import model.dao.VeiculoDaoSql;
 import model.Veiculo;
 import telas.Tela2;
 
@@ -43,20 +43,13 @@ public class VeiculoController {
         try{
             Veiculo veiculo = view.getVeiculoUpdate();
             int operation = view.getNumberOperation();
-            
             if(veiculo==null){
                 view.apresentaInfo("Selecione um veiculo");
                 return;
             }
             switch(operation){
                 case 3:
-                    int id = veiculo.getId();
                     
-                    double valor = veiculo.getValorDiariaLocacao();
-                    veiculo.locar(id,dias,valor);
-                break;
-                default:
-                   return
             }
             veiculoDAO.update(veiculo);
             view.updateVeiculo(veiculo);

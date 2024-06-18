@@ -17,10 +17,10 @@ public class Veiculo {
     private final double valorDeCompra;
     private final String placa;
     private final int ano;
-    private final int id;
     private ModeloAutomovel modeloAutomovel;
     private ModeloMotocicleta modeloMotocicleta;
     private ModeloVan modeloVan;
+    private int id;
 
     // Construtor para Automovel
     public Veiculo(int id, Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano, ModeloAutomovel modelo) {
@@ -42,6 +42,7 @@ public class Veiculo {
 
     // Construtor comum
     private Veiculo(int id, Marca marca, Categoria categoria, Estado estado, double valorDeCompra, String placa, int ano) {
+        this.id =id;
         this.locacao = null;
         this.marca = marca;
         this.estado = estado;
@@ -49,7 +50,6 @@ public class Veiculo {
         this.valorDeCompra = valorDeCompra;
         this.placa = placa;
         this.ano = ano;
-        this.id = id;
     }
 
     public void locar(int id, int dias, double valor, Calendar data, Cliente cliente) {
@@ -95,6 +95,10 @@ public class Veiculo {
 
     public int getId() {
         return this.id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getValorDeCompra() {

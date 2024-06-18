@@ -1,6 +1,6 @@
 package main;
 
-import db.DatabaseConnection;
+import model.dao.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 

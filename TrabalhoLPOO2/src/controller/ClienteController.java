@@ -11,7 +11,7 @@ package controller;
 
 import model.Cliente;
 import telas.Tela1;
-import dao.ClienteDaoSql;
+import model.dao.ClienteDaoSql;
 
 
 public class ClienteController {
@@ -29,12 +29,11 @@ public class ClienteController {
         this.view.initView();
     }
     
-    public void createCliente(Cliente cliente){
+    public void createCliente(){
         try{
-            
+            Cliente cliente = view.getClienteForm();
             clienteDAO.insert(cliente);
             view.insertClienteView(cliente);
-            view.showListCliente(lista);
             view.apresentaInfo("Cliente criado");
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar cliente");
@@ -75,4 +74,3 @@ public class ClienteController {
         }
     }
 }
-

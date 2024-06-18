@@ -1,5 +1,6 @@
 package main;
 
+import classes.VeiculoC;
 import telas.Tela1;
 import telas.Tela2;
 import telas.Tela3;
@@ -14,7 +15,7 @@ import model.Veiculo;
 
 public class Main extends javax.swing.JFrame {
 
-    public static Veiculo[] veiculos;
+    public static VeiculoC[] veiculos;
     
     public Main() {
         initComponents();
@@ -55,12 +56,12 @@ public class Main extends javax.swing.JFrame {
         navigationBar1.setnavigationBackgroundColor(nb);
     }
     
-    public static void addVeiculo(Veiculo veiculo) {
+    public static void addVeiculo(VeiculoC veiculo) {
         if (veiculos == null) {
-            veiculos = new Veiculo[1];
+            veiculos = new VeiculoC[1];
             veiculos[0] = veiculo;
         } else {
-            Veiculo[] newVeiculos = new Veiculo[veiculos.length + 1];
+            VeiculoC[] newVeiculos = new VeiculoC[veiculos.length + 1];
             for (int i = 0; i < veiculos.length; i++) {
                 newVeiculos[i] = veiculos[i];
             }
@@ -69,11 +70,11 @@ public class Main extends javax.swing.JFrame {
         }
     }
 
-    public static Veiculo[] getVeiculosDisponiveis() {
+    public static VeiculoC[] getVeiculosDisponiveis() {
         if (veiculos != null) {
-            Veiculo[] veiculosDisponiveis = new Veiculo[veiculos.length];
+            VeiculoC[] veiculosDisponiveis = new VeiculoC[veiculos.length];
             int index = 0;
-            for (Veiculo veiculo : veiculos) {
+            for (VeiculoC veiculo : veiculos) {
                 String estado = veiculo.getEstado().toString();
                 if (estado.equals("DISPONÍVEL") || estado.equals("NOVO")) {
                     veiculosDisponiveis[index] = veiculo;
@@ -82,7 +83,7 @@ public class Main extends javax.swing.JFrame {
             }
             for (int i = 0; i < veiculosDisponiveis.length; i++) {
                 if (veiculosDisponiveis[i] == null) {
-                    Veiculo[] newVeiculosDisponiveis = new Veiculo[i];
+                    VeiculoC[] newVeiculosDisponiveis = new VeiculoC[i];
                     for (int j = 0; j < i; j++) {
                         newVeiculosDisponiveis[j] = veiculosDisponiveis[j];
                     }
@@ -95,11 +96,11 @@ public class Main extends javax.swing.JFrame {
         return null;
     }
     
-    public static Veiculo[] getVeiculosLocados() {
+    public static VeiculoC[] getVeiculosLocados() {
         if (veiculos != null) {
-            Veiculo[] veiculosLocados = new Veiculo[veiculos.length];
+            VeiculoC[] veiculosLocados = new VeiculoC[veiculos.length];
             int index = 0;
-            for (Veiculo veiculo : veiculos) {
+            for (VeiculoC veiculo : veiculos) {
                 String estado = veiculo.getEstado().toString();
                 if (estado.equals("LOCADO")) {
                     veiculosLocados[index] = veiculo;
@@ -108,7 +109,7 @@ public class Main extends javax.swing.JFrame {
             }
             for (int i = 0; i < veiculosLocados.length; i++) {
                 if (veiculosLocados[i] == null) {
-                    Veiculo[] newVeiculosLocados = new Veiculo[i];
+                    VeiculoC[] newVeiculosLocados = new VeiculoC[i];
                     for (int j = 0; j < i; j++) {
                         newVeiculosLocados[j] = veiculosLocados[j];
                     }

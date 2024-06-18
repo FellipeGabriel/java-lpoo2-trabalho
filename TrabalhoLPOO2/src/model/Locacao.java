@@ -10,6 +10,16 @@ public class Locacao {
     private Cliente cliente;
     private Veiculo veiculo;
 
+    // Construtor sem id
+    public Locacao(int dias, double valor, Calendar data, Cliente cliente, Veiculo veiculo) {
+        this.dias = dias;
+        this.valor = valor;
+        this.data = data;
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+    }
+
+    // Construtor com id
     public Locacao(int id, int dias, double valor, Calendar data, Cliente cliente, Veiculo veiculo) {
         this.id = id;
         this.dias = dias;
@@ -87,6 +97,6 @@ public class Locacao {
     }
 
     public double getValorTotal() {
-        return valor;
+        return valor * dias;
     }
 }

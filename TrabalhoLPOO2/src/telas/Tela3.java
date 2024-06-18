@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 import enums.Marca;
@@ -18,9 +17,7 @@ import enums.Estado;
 import classes.Automovel;
 import classes.Motocicleta;
 import classes.Van;
-import controller.ClienteController;
-import controller.VeiculoController;
-import model.Veiculo;
+import classes.VeiculoC;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -36,39 +33,7 @@ public class Tela3 extends TransitionsForm {
         fillTable(Main.getVeiculosDisponiveis());
         applyMask();
     }
-    public void setControllerVeiculo(VeiculoController controllerVeiculo){
-        //botoesView.setController(controllerVeiculo);
-    }
-    public void setControllerCliente(ClienteController controllerCliente){
-        //botoesView.setController(controllerCliente);
-    }
-    public void initView(){
-        //tableVeiculoView.setjanelaView(this);
-        //tableClienteView.setjanelaView(this);
-        //java.awt.EventQueue.invokeLater(()->this.setVisible(true));
-    }
-    /*public Veiculo getVeiculoForm(){
-        return this.formVeiculoView.getCleinteForm();
-    }*/
-    /*public veiculo getUpdateVeiculo(){
-        return tableVeiculoView.getUpdateVeiculo();
-    }*/
-    public int getNumberOperation(){
-        return 3; // locar
-    }
-    //atualiza o estado do veiculo
-    public void updateVeiculo(Veiculo veiculo){
-        //tableVeiculoView.updateVeiuclo();
-    }
-    public void showListVeiculo(List<Veiculo> lista){
-        //tableVeiculoView.setListTableVeiculo(lista);
-    }
-    public void apresentaInfo (String info){
-        JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
-   }
-   public void apresentaErro(String erro){
-        JOptionPane.showMessageDialog(null, erro +"\n" ,"Erro", JOptionPane.ERROR_MESSAGE);
-   }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -263,12 +228,6 @@ public class Tela3 extends TransitionsForm {
             }
         });
 
-        DataTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataTextFieldActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -421,20 +380,20 @@ public class Tela3 extends TransitionsForm {
             return;
         }
         
-        Veiculo[] veiculos = Main.veiculos;
-        Veiculo[] veiculosFiltrados = null; // Array para armazenar veículos filtrados
+        VeiculoC[] veiculos = Main.veiculos;
+        VeiculoC[] veiculosFiltrados = null; // Array para armazenar veículos filtrados
 
         if (veiculos != null && veiculos.length > 0) {
-            for (Veiculo veiculo : veiculos) {
+            for (VeiculoC veiculo : veiculos) {
                 if (veiculo != null && veiculo.getEstado().equals(Estado.DISPONÍVEL) || veiculo.getEstado().equals(Estado.NOVO)) {
                     if (automovelRB1.isSelected() && veiculo instanceof Automovel) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -442,11 +401,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -454,11 +413,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -466,11 +425,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -480,11 +439,11 @@ public class Tela3 extends TransitionsForm {
                     } else if (motocicletaRB2.isSelected() && veiculo instanceof Motocicleta) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -492,11 +451,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -504,11 +463,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -516,11 +475,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -530,11 +489,11 @@ public class Tela3 extends TransitionsForm {
                     } else if (vanRB3.isSelected() && veiculo instanceof Van) {
                         if (marcaSelecionada.equals("Selecionar") && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -542,11 +501,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (marcaSelecionada.equals("Selecionar") && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -554,11 +513,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && categoriaSelecionada.equals("Selecionar")) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -566,11 +525,11 @@ public class Tela3 extends TransitionsForm {
                             }
                         } else if (veiculo.getMarca().toString().equals(marcaSelecionada) && veiculo.getCategoria().toString().equals(categoriaSelecionada)) {
                             if (veiculosFiltrados == null) {
-                                veiculosFiltrados = new Veiculo[1];
+                                veiculosFiltrados = new VeiculoC[1];
                                 veiculosFiltrados[0] = veiculo;
                             } else {
-                                Veiculo[] newVeiculosFiltrados = veiculosFiltrados;
-                                veiculosFiltrados = new Veiculo[veiculosFiltrados.length + 1];
+                                VeiculoC[] newVeiculosFiltrados = veiculosFiltrados;
+                                veiculosFiltrados = new VeiculoC[veiculosFiltrados.length + 1];
                                 for (int i = 0; i < newVeiculosFiltrados.length; i++) {
                                     veiculosFiltrados[i] = newVeiculosFiltrados[i];
                                 }
@@ -622,13 +581,13 @@ public class Tela3 extends TransitionsForm {
             }
     }
     
-        private void fillTable(Veiculo[] veiculos) {
+        private void fillTable(VeiculoC[] veiculos) {
         DefaultTableModel model = (DefaultTableModel) tableFiltrada.getModel();
            model.setRowCount(0);
            
             if (veiculos != null) {
             
-                for (Veiculo veiculo : veiculos) {
+                for (VeiculoC veiculo : veiculos) {
                     String modelo = "";
                     double precoDiaria = 0;
 
@@ -718,7 +677,6 @@ public class Tela3 extends TransitionsForm {
             cpfCliente = Integer.parseInt(cpfClienteString);
         }
     
-        
         Cliente[] arrayClientes = Cliente.getAllClientes();
         Cliente[] informacoesEncontradas = null;
     
@@ -782,7 +740,7 @@ public class Tela3 extends TransitionsForm {
         for (Cliente cliente : Cliente.getAllClientes()) {
             if (cliente != null && cliente.getCPF() == Integer.parseInt(ClientesLocarTable.getValueAt(clienteSelecionado, 2).toString())) {
                 
-                for (Veiculo veiculo : Main.veiculos) {
+                for (VeiculoC veiculo : Main.veiculos) {
                     if (veiculo != null && veiculo.getPlaca().equals(placa)) {
                         double valor = veiculo.getValorDiariaLocacao();
 
@@ -808,10 +766,6 @@ public class Tela3 extends TransitionsForm {
         }
 
     }//GEN-LAST:event_LocarButtonActionPerformed
-
-    private void DataTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DataTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
