@@ -10,6 +10,6 @@ package interfaces;
  */
 public interface ClienteI {
     public void CreateCliente();
-    public void ChangeCliente(String name,String sobrenome,int RG,int CPF,String endereco);
+    public void ChangeCliente(String name,String sobrenome,String RG,String CPF,String endereco);
     public void DeleteCliente();
 }
