@@ -77,11 +77,21 @@ public class Tela1 extends TransitionsForm {
         }
     }
    
- /*   
+    public Cliente getForm(){
+        String nome = inputName.getText();
+        String sobrenome = inputSobreNome.getText();
+        String RG = inputRG.getText();
+        String CPF = inputCPF.getText();
+        String endereco = inputEndereco.getText();
+        Cliente cliente = new Cliente(nome, sobrenome,RG,CPF,endereco);
+        return cliente;
+    }
+    
     public void insertClienteView(Cliente cliente){
         //tableClienteView.insertClienteTabela(cliente);
     }
-    public Cliente getUpdateCliente(){
+    
+/*    public Cliente getUpdateCliente(){
         formClienteView.getUpdateCliente();
     }
    public void updateCliente(Cliente cliente){
@@ -328,21 +338,11 @@ public class Tela1 extends TransitionsForm {
     private void inputEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputEnderecoActionPerformed
-    //Criar cliente
-    
+    //pegar dados do formulario para criar cliente
     private void bCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCriarActionPerformed
-    /* 
-        // TODO add your handling code here:
-        String nome = inputName.getText();
-        String sobrenome = inputSobreNome.getText();
-        String S_RG = inputRG.getText();
-        String S_CPF = inputCPF.getText();
-        String endereco = inputEndereco.getText();
-        try {
-            int RG = Integer.parseInt(S_RG);
-            int CPF = Integer.parseInt(S_CPF);
-            
-            Cliente novoCliente = new Cliente(nome, sobrenome, RG, CPF, endereco);
+
+        clienteController.createCliente();
+        /*try {
             //cria linha na tabela
             DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
             modeloTabela.setRowCount(0);
@@ -355,10 +355,10 @@ public class Tela1 extends TransitionsForm {
            
             JOptionPane.showMessageDialog(this, "Cliente criado com sucesso!",
                 "Sucesso ao criar cliente", JOptionPane.INFORMATION_MESSAGE);
-    } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Erro ao criar cliente. Certifique-se de que RG e CPF são números válidos.",
                 "Erro ao criar cliente", JOptionPane.ERROR_MESSAGE);
-    }   */
+        }*/   
     }//GEN-LAST:event_bCriarActionPerformed
 
     private void bCriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bCriarMouseClicked

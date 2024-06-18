@@ -70,7 +70,6 @@ public class ClienteDaoSql implements DAO<Cliente> {
                 clientes.add(cliente);
             }
         }
-        System.out.println("Entrei no dao: "+clientes);
         return clientes;
     }
 
