@@ -3,6 +3,7 @@ package controller;
 import model.Cliente;
 import telas.Tela1;
 import model.dao.ClienteDaoSql; 
+import java.sql.SQLException;
 
 import java.util.List; 
 import javax.swing.JOptionPane;
@@ -32,26 +33,26 @@ public class ClienteController {
             Cliente cliente = view.getForm();
             clienteDAO.insert(cliente);
             view.carregarClientes();
+            view.limpaForm();
             view.apresentaInfo("Cliente criado");
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar cliente");
         }
     }
-/*     
-    public void updateCliente(){
+    
+    public void updateCliente(Cliente cliente){
         try{
-            Cliente cliente = view.getClienteUpdate();
             if(cliente == null){
                 view.apresentaInfo("Selecione um cliente para atualizar");
                 return;
             }
             clienteDAO.update(cliente);
-            view.updateCliente(cliente);
+            view.carregarClientes();
         }catch(Exception ex){
             view.apresentaErro("Erro ao atualizar cliente");
         }
     }
-    */
+    
     public void showCliente(){
         try{
             List<Cliente> lista = this.clienteDAO.getAll();
@@ -62,16 +63,18 @@ public class ClienteController {
         }
     }
     
-    /*public void deleteCliente(){
+    public void deleteCliente(int id){
         try{
-            Cliente cliente = view.getClienteDelete();
-            clienteDAO.delete(listDelete);
-            view.deleteClienteView(listDelete);
-        }catch(Exception ex){
-            view.apresentaErro("Erro ao excluir o cliente");
-            System.out.println("selecionado: "+cliente.getNome());
+            clienteDAO.delete(id);
+            view.carregarClientes();
+        }catch (SQLException ex) {
+            ex.printStackTrace(); 
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente: O mesmo possui locações ativas", "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace(); 
+        JOptionPane.showMessageDialog(null, "Erro inesperado ao excluir o cliente.", "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
         }
-    }*/
+    }
     public void searchCliente(int id){
         try{
             Cliente cliente = clienteDAO.get(id);
@@ -79,7 +82,7 @@ public class ClienteController {
                 view.apresentaErro("cliente não encontrado");
                 return;
             }
-            view.deleteCliente(cliente);
+            view.deleteClienteView(cliente);
         }catch(Exception ex){
             view.apresentaErro("Erro ao buscar cliente "+ex.getMessage());
         }
