@@ -45,7 +45,6 @@ public class Tela1 extends TransitionsForm {
         }
     }
      public void initView(){
-        //tableClienteView.setJanelaView(this);
         java.awt.EventQueue.invokeLater(()->this.setVisible(true));
     }
      //busca os clientes no banco
@@ -90,7 +89,13 @@ public class Tela1 extends TransitionsForm {
         Cliente cliente = new Cliente(nome, sobrenome,RG,CPF,endereco);
         return cliente;
     }
-    
+    public void limpaForm(){
+        inputName.setText("");
+        inputSobreNome.setText("");
+        inputRG.setText("");
+        inputCPF.setText("");
+        inputEndereco.setText("");
+    }
     public void getClienteDelete(){
         int selectedRow = tableClient.getSelectedRow();
         // Verificar se alguma linha está selecionada
@@ -99,25 +104,27 @@ public class Tela1 extends TransitionsForm {
                     "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
         }
         int id =idMap.get(selectedRow);
-        clienteController.searchCliente(id);
+        clienteController.searchClienteId(id);
     }
     public void deleteClienteView(Cliente cliente){
-        
+        clienteController.deleteCliente(cliente.getId());
     }
-/*    public Cliente getUpdateCliente(){
-        formClienteView.getUpdateCliente();
+    public void getUpdateCliente(){
+        int selectedRow = tableClient.getSelectedRow();
+        if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.",
+                "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
+        int id =idMap.get(selectedRow);
+        String nome = (String)tableClient.getValueAt(selectedRow,0);
+        String sobrenome = (String)tableClient.getValueAt(selectedRow,1);
+        String RG = (String) tableClient.getValueAt(selectedRow, 2);
+        String CPF = (String)tableClient.getValueAt(selectedRow, 3);
+        String endereco = (String)tableClient.getValueAt(selectedRow,4);
+        Cliente clienteEdit = new Cliente(id,nome,sobrenome,RG,CPF,endereco);
+        clienteController.updateCliente(clienteEdit);
     }
-   public void updateCliente(Cliente cliente){
-       //tableClienteView.updateCliente();
-   }
-   
-   public List<Cliente> getClienteDelete(){
-       return this.tableCleinteView.getCleinteDelete();
-   }
-   public void deleteClienteView(List<Cliente> listDelete){
-       tableClienteView.deleteCliente(listDelete);
-   }
-  */
     public void apresentaInfo (String info){
         JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
    }
@@ -362,26 +369,12 @@ public class Tela1 extends TransitionsForm {
     }//GEN-LAST:event_bCriarMouseClicked
 
     private void bEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = tableClient.getSelectedRow();
-        if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Selecione um cliente para editar.",
-                "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
-        }
-        String nome = (String)tableClient.getValueAt(selectedRow,0);
-        String sobrenome = (String)tableClient.getValueAt(selectedRow,1);
-        int RG = Integer.parseInt(tableClient.getValueAt(selectedRow, 2).toString());
-        int CPF = Integer.parseInt(tableClient.getValueAt(selectedRow, 3).toString());
-        String endereco = (String)tableClient.getValueAt(selectedRow,4);
-        //Cliente clienteEdit = Cliente.getCliente(selectedRow);
-        //clienteEdit.ChangeCliente(nome,sobrenome,RG,CPF,endereco);
+       getUpdateCliente();
     }//GEN-LAST:event_bEditActionPerformed
 
     private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
         getClienteDelete();
     }//GEN-LAST:event_bExcluirActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCriar;

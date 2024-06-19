@@ -24,18 +24,19 @@ public class VeiculoController {
     }
     
     public void createVeiculo(){
-        try{
+        try{ //escreve de forma para capturar o erro ou veicul criado/ajanaina
             Veiculo veiculo = view.getVeiculoForm();
             veiculoDAO.insert(veiculo);
-            view.insertVeiculoView(veiculo);
+            //view.insertVeiculoView(veiculo);
             view.apresentaInfo("Veiculo criado");
+            //chama funçãona tela2 limpa coisa
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar o veiculo");
         }
         
     }
     
-    public void updateVeiculo(){
+    /*public void updateVeiculo(){
         try{
             Veiculo veiculo = view.getVeiculoUpdate();
             int operation = view.getNumberOperation();
@@ -57,5 +58,14 @@ public class VeiculoController {
         }catch(Exception ex){
             view.apresentaErro("Erro ao atualizar veiculo");
         }
-    }
+    }*/
+    /*public void showVeiculo(){
+        try{
+            List<Veiculo> lista = this.veiculoDAO.getAll();
+            view.showListVeiculo(lista);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            view.apresentaErro("Erro ao mostrar cliente no showcliente");
+        }
+    }*/
 }
