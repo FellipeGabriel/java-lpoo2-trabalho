@@ -39,20 +39,19 @@ import transitions.TransitionsForm;
  * @author 
  */
 public class Tela2 extends TransitionsForm {
-    //Adicionado \/
+
   private VeiculoDaoSql veiculoDAO;
   private VeiculoController veiculoController;
   private Map<Integer, Integer> idMap = new HashMap<>();
-    //Adicionado /\
+
   private String[] marca, estado, categoria, modeloAutomovel, modeloMotocicleta, modeloVan;
-    
-     
+
     public Tela2() {
         createOptions();
         initComponents();
         addRadioButtonsToGroup();
         addRadioButtonListeners();
-        this.veiculoDAO = new VeiculoDaoSql(); //Oi
+        this.veiculoDAO = new VeiculoDaoSql();
         this.veiculoController = new VeiculoController(this, veiculoDAO);
     }
     
@@ -63,31 +62,29 @@ public class Tela2 extends TransitionsForm {
         java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
     }
     
-    // Não precisa carregarVeiculos e showlistaveiculos
-    
-    //* * * Método para obter o formulário de veículos
+    //Método para obter o formulário de veículos
     public Veiculo getVeiculoForm() {
         try {
             Marca marca = Marca.valueOf(MarcaComboBox.getSelectedItem().toString());
             Estado estado = Estado.valueOf(EstadoComboBox.getSelectedItem().toString());
             Categoria categoria = Categoria.valueOf(CategoriaComboBox.getSelectedItem().toString());
-            double valor = Double.parseDouble(getRawValue(ValorTextField)) / 100;
+            double valorDeCompra = Double.parseDouble(getRawValue(ValorTextField)) / 100;
             String placa = PlacaTextField.getText();
             int ano = Integer.parseInt(AnoTextField.getText());
             
             if (AutomovelRadioButton.isSelected()) {
                 ModeloAutomovel modeloAutomovel = ModeloAutomovel.valueOf(ModeloAutomovelComboBox.getSelectedItem().toString());
-                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valor, placa, ano, modeloAutomovel);
+                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valorDeCompra, placa, ano, modeloAutomovel);
                 return veiculo;
                 
             } else if (MotocicletaRadioButton.isSelected()) {
                 ModeloMotocicleta modeloMotocicleta = ModeloMotocicleta.valueOf(ModeloMotocicletaComboBox.getSelectedItem().toString());
-                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valor, placa, ano, modeloMotocicleta);
+                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valorDeCompra, placa, ano, modeloMotocicleta);
                 return veiculo;
                 
             } else if (VanRadioButton.isSelected()) {
                 ModeloVan modeloVan = ModeloVan.valueOf(ModeloVanComboBox.getSelectedItem().toString());
-                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valor, placa, ano, modeloVan);
+                Veiculo veiculo = new Veiculo(0, marca, categoria, estado, valorDeCompra, placa, ano, modeloVan);
                 return veiculo;
             }
     
@@ -97,7 +94,6 @@ public class Tela2 extends TransitionsForm {
         }
         return null;
     }
-    // Adicionado * * *
     
     public void apresentaInfo (String info){
         JOptionPane.showMessageDialog(null,info + "\n","Informação",JOptionPane.INFORMATION_MESSAGE);
@@ -105,7 +101,6 @@ public class Tela2 extends TransitionsForm {
    public void apresentaErro(String erro){
         JOptionPane.showMessageDialog(null, erro +"\n" ,"Erro", JOptionPane.ERROR_MESSAGE);
    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -339,7 +334,7 @@ public class Tela2 extends TransitionsForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CadastrarVeiculoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarVeiculoButtonActionPerformed
-        getVeiculoForm();
+        veiculoController.createVeiculo();
     }//GEN-LAST:event_CadastrarVeiculoButtonActionPerformed
     
     private String getRawValue(JFormattedTextField textField) {
@@ -381,7 +376,7 @@ public class Tela2 extends TransitionsForm {
     }
     
     public void radioButtonStateChanged(ItemEvent evt) {
-    //Antigo public void radioButtonStateChanged(java.awt.event.ItemEvent evt) {
+
         if (evt.getStateChange() == ItemEvent.SELECTED) {  
             if (AutomovelRadioButton.isSelected()) {
                 ModeloAutomovelComboBox.setVisible(true);
@@ -396,8 +391,7 @@ public class Tela2 extends TransitionsForm {
             } else if (VanRadioButton.isSelected()) {
                 ModeloAutomovelComboBox.setVisible(false);
                 ModeloMotocicletaComboBox.setVisible(false);
-                ModeloVanComboBox.setVisible(true);
-            
+                ModeloVanComboBox.setVisible(true);   
             }
         }
     }
