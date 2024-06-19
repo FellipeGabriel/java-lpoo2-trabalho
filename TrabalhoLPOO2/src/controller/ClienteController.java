@@ -61,15 +61,28 @@ public class ClienteController {
             view.apresentaErro("Erro ao mostrar cliente no showcliente");
         }
     }
-    /*
-    public void deleteCliente(){
+    
+    /*public void deleteCliente(){
         try{
-            List<Cliente> listDelete = view.getClienteDelete();
+            Cliente cliente = view.getClienteDelete();
             clienteDAO.delete(listDelete);
             view.deleteClienteView(listDelete);
         }catch(Exception ex){
             view.apresentaErro("Erro ao excluir o cliente");
+            System.out.println("selecionado: "+cliente.getNome());
         }
     }*/
+    public void searchCliente(int id){
+        try{
+            Cliente cliente = clienteDAO.get(id);
+            if(cliente == null){
+                view.apresentaErro("cliente não encontrado");
+                return;
+            }
+            view.deleteCliente(cliente);
+        }catch(Exception ex){
+            view.apresentaErro("Erro ao buscar cliente "+ex.getMessage());
+        }
+    }
 }
     

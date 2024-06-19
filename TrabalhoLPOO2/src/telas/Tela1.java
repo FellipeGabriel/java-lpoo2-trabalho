@@ -11,6 +11,8 @@ import classes.VeiculoC;
 import java.util.List;
 import model.dao.ClienteDaoSql; 
 import controller.ClienteController;
+import java.util.HashMap;
+import java.util.Map;
 import main.Main;
 
 import javax.swing.JOptionPane;
@@ -25,7 +27,7 @@ public class Tela1 extends TransitionsForm {
      */
     private ClienteDaoSql clienteDAO; 
     private ClienteController clienteController;
-    
+    private Map<Integer, Integer> idMap = new HashMap<>();
     public Tela1() {
         initComponents();
         this.clienteDAO = new ClienteDaoSql();
@@ -63,6 +65,8 @@ public class Tela1 extends TransitionsForm {
             modeloTabela.setRowCount(0);
 
             for (Cliente cliente : lista) {
+                int id = cliente.getId();
+                idMap.put(modeloTabela.getRowCount(), id);
                 modeloTabela.addRow(new Object[]{
                     cliente.getNome(),
                     cliente.getSobrenome(),
@@ -87,10 +91,19 @@ public class Tela1 extends TransitionsForm {
         return cliente;
     }
     
-    public void insertClienteView(Cliente cliente){
-        //tableClienteView.insertClienteTabela(cliente);
+    public void getClienteDelete(){
+        int selectedRow = tableClient.getSelectedRow();
+        // Verificar se alguma linha está selecionada
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.",
+                    "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
+        }
+        int id =idMap.get(selectedRow);
+        clienteController.searchCliente(id);
     }
-    
+    public void deleteClienteView(Cliente cliente){
+        
+    }
 /*    public Cliente getUpdateCliente(){
         formClienteView.getUpdateCliente();
     }
@@ -340,25 +353,7 @@ public class Tela1 extends TransitionsForm {
     }//GEN-LAST:event_inputEnderecoActionPerformed
     //pegar dados do formulario para criar cliente
     private void bCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCriarActionPerformed
-
-        clienteController.createCliente();
-        /*try {
-            //cria linha na tabela
-            DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
-            modeloTabela.setRowCount(0);
-            Cliente [] arrayClientes = Cliente.getClientes();
-           for(int i=0;i<arrayClientes.length;i++){
-                modeloTabela.addRow(new Object[]{arrayClientes[i].getName(),
-                    arrayClientes[i].getSobrenome(),arrayClientes[i].getRG(),arrayClientes[i].getCPF(),arrayClientes[i].getEndereco()});
-            }
-            
-           
-            JOptionPane.showMessageDialog(this, "Cliente criado com sucesso!",
-                "Sucesso ao criar cliente", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Erro ao criar cliente. Certifique-se de que RG e CPF são números válidos.",
-                "Erro ao criar cliente", JOptionPane.ERROR_MESSAGE);
-        }*/   
+        clienteController.createCliente(); 
     }//GEN-LAST:event_bCriarActionPerformed
 
     private void bCriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bCriarMouseClicked
@@ -384,38 +379,7 @@ public class Tela1 extends TransitionsForm {
     }//GEN-LAST:event_bEditActionPerformed
 
     private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = tableClient.getSelectedRow();
-        
-        boolean hasLocacao = false;
-        int cpf;
-        
-        // Verificar se alguma linha está selecionada
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione um cliente para excluir.",
-                    "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        // Remove a linha selecionada na tabela
-        //DefaultTableModel modeloTabela = (DefaultTableModel) tableClient.getModel();
-        //Cliente ClienteExclud = Cliente.getCliente(selectedRow);
-        //cpf = ClienteExclud.getCPF();
-        VeiculoC[] veiculosLocados = Main.getVeiculosLocados();
-        for (int i = 0; i < veiculosLocados.length; i++) {
-            //if (veiculosLocados[i].getLocacao().getCliente().getCPF() == cpf) {
-            //    hasLocacao = true;
-            //}
-        }
-        if (hasLocacao) {
-            JOptionPane.showMessageDialog(this, "Não é possível excluir um cliente que possui locação.",
-                    "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            //ClienteExclud.DeleteCliente();
-            //modeloTabela.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!",
-                    "Sucesso ao excluir cliente", JOptionPane.INFORMATION_MESSAGE);
-        }
+        getClienteDelete();
     }//GEN-LAST:event_bExcluirActionPerformed
 
 
