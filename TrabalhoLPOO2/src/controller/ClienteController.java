@@ -5,6 +5,7 @@ import telas.Tela1;
 import model.dao.ClienteDaoSql; 
 
 import java.util.List; 
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,18 +26,18 @@ public class ClienteController {
         this.view.setControllerCliente(this);
         this.view.initView();
     }
-    
+   
     public void createCliente(){
         try{
-            Cliente cliente = view.getClienteForm();
+            Cliente cliente = view.getForm();
             clienteDAO.insert(cliente);
-            view.insertClienteView(cliente);
+            view.carregarClientes();
             view.apresentaInfo("Cliente criado");
         }catch(Exception ex){
             view.apresentaErro("Erro ao criar cliente");
         }
     }
-    
+/*     
     public void updateCliente(){
         try{
             Cliente cliente = view.getClienteUpdate();
@@ -50,25 +51,38 @@ public class ClienteController {
             view.apresentaErro("Erro ao atualizar cliente");
         }
     }
-    
+    */
     public void showCliente(){
         try{
-            view.clearUpdateCliente();
             List<Cliente> lista = this.clienteDAO.getAll();
             view.showListCliente(lista);
         }catch(Exception ex){
             ex.printStackTrace();
-            view.apresentaErro("Erro ao mostrar cliente");
+            view.apresentaErro("Erro ao mostrar cliente no showcliente");
         }
     }
     
-    public void deleteCliente(){
+    /*public void deleteCliente(){
         try{
-            List<Cliente> listDelete = view.getClienteDelete();
+            Cliente cliente = view.getClienteDelete();
             clienteDAO.delete(listDelete);
             view.deleteClienteView(listDelete);
         }catch(Exception ex){
             view.apresentaErro("Erro ao excluir o cliente");
+            System.out.println("selecionado: "+cliente.getNome());
+        }
+    }*/
+    public void searchCliente(int id){
+        try{
+            Cliente cliente = clienteDAO.get(id);
+            if(cliente == null){
+                view.apresentaErro("cliente não encontrado");
+                return;
+            }
+            view.deleteCliente(cliente);
+        }catch(Exception ex){
+            view.apresentaErro("Erro ao buscar cliente "+ex.getMessage());
         }
     }
 }
+    
