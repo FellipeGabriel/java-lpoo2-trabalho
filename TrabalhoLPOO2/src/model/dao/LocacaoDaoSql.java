@@ -9,11 +9,21 @@ import java.util.Calendar;
 import java.util.List;
 
 public class LocacaoDaoSql implements DAO<Locacao> {
+
+    private final ClienteDaoSql clienteDao;
+    private final VeiculoDaoSql veiculoDao;
+
+    public LocacaoDaoSql() {
+        this.clienteDao = new ClienteDaoSql();
+        this.veiculoDao = new VeiculoDaoSql();
+    }
+
     @Override
     public void insert(Locacao locacao) throws SQLException {
         String sql = "INSERT INTO Locacao (dias, valor, data, cliente_id, veiculo_id) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             
             stmt.setInt(1, locacao.getDias());
             stmt.setDouble(2, locacao.getValor());
             stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
@@ -37,25 +47,25 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         Locacao locacao = null;
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Calendar data = Calendar.getInstance();
-                data.setTime(rs.getDate("data"));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Calendar data = Calendar.getInstance();
+                    data.setTime(rs.getDate("data"));
 
-                ClienteDaoSql clienteDao = new ClienteDaoSql();
-                VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
-                Cliente cliente = clienteDao.get(rs.getInt("cliente_id"));
-                Veiculo veiculo = veiculoDao.get(rs.getInt("veiculo_id"));
+                    Cliente cliente = clienteDao.get(rs.getInt("cliente_id"));
+                    Veiculo veiculo = veiculoDao.get(rs.getInt("veiculo_id"));
 
-                locacao = new Locacao(
-                        rs.getInt("id"),
-                        rs.getInt("dias"),
-                        rs.getDouble("valor"),
-                        data,
-                        cliente,
-                        veiculo
-                );
+                    locacao = new Locacao(
+                            rs.getInt("id"),
+                            rs.getInt("dias"),
+                            rs.getDouble("valor"),
+                            data,
+                            cliente,
+                            veiculo
+                    );
+                }
             }
         }
         return locacao;
@@ -68,12 +78,11 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
+             
             while (rs.next()) {
                 Calendar data = Calendar.getInstance();
                 data.setTime(rs.getDate("data"));
 
-                ClienteDaoSql clienteDao = new ClienteDaoSql();
-                VeiculoDaoSql veiculoDao = new VeiculoDaoSql();
                 Cliente cliente = clienteDao.get(rs.getInt("cliente_id"));
                 Veiculo veiculo = veiculoDao.get(rs.getInt("veiculo_id"));
 
@@ -96,6 +105,7 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         String sql = "UPDATE Locacao SET dias = ?, valor = ?, data = ?, cliente_id = ?, veiculo_id = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
             stmt.setInt(1, locacao.getDias());
             stmt.setDouble(2, locacao.getValor());
             stmt.setDate(3, new java.sql.Date(locacao.getDataInicio().getTimeInMillis()));
@@ -111,6 +121,7 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         String sql = "DELETE FROM Locacao WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
@@ -121,6 +132,7 @@ public class LocacaoDaoSql implements DAO<Locacao> {
         String sql = "DELETE FROM Locacao";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+             
             stmt.executeUpdate();
         }
     }
